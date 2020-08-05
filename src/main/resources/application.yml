@@ -51,6 +51,8 @@ pagehelper:
   params: count=countSql
   returnPageInfo: check
 mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
   #实体类所做包
   type-aliases-package: com.ctgu.salary.po
   #mapper.xml所在位置
