@@ -33,8 +33,8 @@ spring:
       test-on-return: false
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
-  jpa:
-    show-sql: true
+#  jpa:
+#    show-sql: true
 #  redis:
 #    jedis:
 #      pool:
@@ -50,8 +50,8 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
   returnPageInfo: check
-#mybatis:
-#  #实体类所做包
-#  type-aliases-package: com.ctgu.salary.po
-#  #mapper.xml所在位置
-#  mapper-locations: classpath:mappers/*.xml
+mybatis:
+  #实体类所做包
+  type-aliases-package: com.ctgu.salary.po
+  #mapper.xml所在位置
+  mapper-locations: classpath:mappers/*.xml

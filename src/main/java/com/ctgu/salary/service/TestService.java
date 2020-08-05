@@ -1,4 +1,4 @@
-package com.ctgu.salary.Service;
+package com.ctgu.salary.service;
 
 /**
  * @Description TODO
