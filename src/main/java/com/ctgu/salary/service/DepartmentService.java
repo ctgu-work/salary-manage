@@ -3,9 +3,9 @@ package com.ctgu.salary.service;
 /**
  * @Description TODO
  * @Author wh_lan
- * @create 2020-08-05 10:55
- * @ClassName TestService
+ * @create 2020-08-06 10:32
+ * @ClassName DepartmentService
  * @Version 1.0.0
  */
-public interface TestService {
+public interface DepartmentService {
 }
