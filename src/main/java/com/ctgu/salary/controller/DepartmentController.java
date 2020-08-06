@@ -5,6 +5,7 @@ import com.ctgu.salary.dto.DepartmentName;
 import com.ctgu.salary.dto.ResultBody;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.po.DepartmentType;
+import com.ctgu.salary.po.Staff;
 import com.ctgu.salary.service.DepartmentService;
 import com.ctgu.salary.service.DepartmentTypeService;
 import com.github.pagehelper.PageHelper;
@@ -100,15 +101,15 @@ public class DepartmentController {
     public ResultBody addOneDepartment(@RequestBody(required = false) Department department){
         ResultBody resultBody = new ResultBody();
 
-        //查找
-        int result = departmentService.addDepartment(department);
-        if( result == 0 ){
-            resultBody.setMsg("add error");
-            resultBody.setStatusCode("500");
+        Department departmentFind = departmentService.findDepartmentByName(department.getDepartName());
+        if( departmentFind == null ){
+            departmentService.addDepartment(department);
+            resultBody.setMsg("success");
+            resultBody.setStatusCode("200");
         }
         else{
-            resultBody.setMsg("add success");
-            resultBody.setStatusCode("200");
+            resultBody.setMsg("exist");
+            resultBody.setStatusCode("302");
         }
         resultBody.setResult(department);
         return resultBody;
@@ -124,36 +125,81 @@ public class DepartmentController {
     @RequestMapping(value = "/update" , method = RequestMethod.POST )
     public ResultBody updateOneDepartment(@RequestBody(required = false) Department department){
         ResultBody resultBody = new ResultBody();
+        departmentService.updateDepartment(department);
+        resultBody.setMsg("update success");
+        resultBody.setStatusCode("200");
+        Department updateDepartment = departmentService.findDepartmentById(department.getDepartId());
+        resultBody.setResult(updateDepartment);
+        return resultBody;
+    }
 
-        int result = departmentService.updateDepartment(department);
-        if( result == 1 ){
-            resultBody.setMsg("update success");
-            resultBody.setStatusCode("200");
-        }
-        else{
-            resultBody.setMsg("update error");
-            resultBody.setStatusCode("500");
-        }
-
-        resultBody.setResult(department);
+    /**
+     * @Author wh
+     * @Description 删除部门
+     * @Date 2020/8/6 19:56
+     * @Param [departId]
+     * @return com.ctgu.salary.dto.ResultBody
+     **/
+    @RequestMapping(value = "/del" , method = RequestMethod.POST )
+    public ResultBody delDepartById(@RequestParam("departId") Integer departId){
+        ResultBody resultBody = new ResultBody();
+        departmentService.delDepartmentById(departId);
+        resultBody.setMsg("del success");
+        resultBody.setStatusCode("200");
         return resultBody;
     }
 
 
-    @RequestMapping(value = "/find" , method = RequestMethod.GET )
+    /**
+     * @Author wh
+     * @Description 通过Id查找
+     * @Date 2020/8/6 19:58
+     * @Param [id]
+     * @return com.ctgu.salary.dto.ResultBody
+     **/
+    @RequestMapping(value = "/find-id" , method = RequestMethod.GET )
     public ResultBody findDepartById(@RequestParam("id") Integer id){
         ResultBody resultBody = new ResultBody();
         Department department = departmentService.findDepartmentById(id);
+        resultBody.setStatusCode("200");
+        resultBody.setStatusCode("success");
         resultBody.setResult(department);
         return resultBody;
     }
 
-    @RequestMapping(value = "/del" , method = RequestMethod.POST )
-    public ResultBody delDepartById(){
+    /**
+     * @Author wh
+     * @Description 通过名称查找
+     * @Date 2020/8/6 19:58
+     * @Param [departName]
+     * @return com.ctgu.salary.dto.ResultBody
+     **/
+    @RequestMapping(value = "/find-name" , method = RequestMethod.GET )
+    public ResultBody findDepartByName(@RequestParam("departName") String departName){
         ResultBody resultBody = new ResultBody();
+        Department department = departmentService.findDepartmentByName(departName);
+        resultBody.setResult(department);
+        resultBody.setStatusCode("200");
+        resultBody.setStatusCode("success");
         return resultBody;
     }
 
+    /**
+     * @Author wh
+     * @Description 查找部门下的员工
+     * @Date 2020/8/6 20:43
+     * @Param [departId]
+     * @return com.ctgu.salary.dto.ResultBody
+     **/
+    @RequestMapping(value = "/find-staff" , method = RequestMethod.GET )
+    public ResultBody findStaffsByDepartId(@RequestParam("departId") Integer departId){
+        ResultBody resultBody = new ResultBody();
+        List<Staff> staff = departmentService.findStaffsByDepartID(departId);
+        resultBody.setResult(staff);
+        resultBody.setStatusCode("200");
+        resultBody.setStatusCode("success");
+        return resultBody;
+    }
 }
 
 
