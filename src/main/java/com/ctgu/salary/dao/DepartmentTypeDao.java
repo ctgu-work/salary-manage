@@ -1,5 +1,7 @@
 package com.ctgu.salary.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 /**
  * @Description TODO
  * @Author wh_lan
@@ -7,5 +9,6 @@ package com.ctgu.salary.dao;
  * @ClassName DepartmentTypeDao
  * @Version 1.0.0
  */
+@Mapper
 public interface DepartmentTypeDao {
 }
