@@ -31,4 +31,16 @@
 		WHERE a.depart_type_id = department_type.depart_type_id order by establish_date desc
 	</select>
 
+	<resultMap id="departName" type="com.ctgu.salary.dto.DepartmentName">
+		<id column="depart_id" property="departId" />
+		<result column="depart_name" property="departName" />
+	</resultMap>
+	<select id="findAllDepartmentName" resultMap="departName">
+		SELECT depart_id,depart_name FROM department
+	</select>
+
+	<select id="findDepartmentById" parameterType="INTEGER" resultType="com.ctgu.salary.po.Department">
+		SELECT * FROM department WHERE department.depart_id = #{id}
+	</select>
+
 </mapper>

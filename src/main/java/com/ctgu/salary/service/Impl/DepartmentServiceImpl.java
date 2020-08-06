@@ -2,6 +2,7 @@ package com.ctgu.salary.service.Impl;
 
 import com.ctgu.salary.dao.DepartmentDao;
 import com.ctgu.salary.dto.DepartmentDto;
+import com.ctgu.salary.dto.DepartmentName;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.service.DepartmentService;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.List;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
     @Resource
-    private DepartmentDao departmentDao;
+    protected DepartmentDao departmentDao;
 
     @Override
     public int addDepartment(Department department) {
@@ -29,6 +30,16 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public int updateDepartment(Department department) {
         return departmentDao.updateDepartment(department);
+    }
+
+    @Override
+    public Department findDepartmentById(Integer id) {
+        return departmentDao.findDepartmentById(id);
+    }
+
+    @Override
+    public List<DepartmentName> findAllDepartmentName() {
+        return departmentDao.findAllDepartmentName();
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.ctgu.salary.service.Impl;
 
 import com.ctgu.salary.dao.DepartmentTypeDao;
+import com.ctgu.salary.po.DepartmentType;
 import com.ctgu.salary.service.DepartmentTypeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Description TODO
@@ -17,4 +19,9 @@ import javax.annotation.Resource;
 public class DepartmentTypeServiceImpl implements DepartmentTypeService {
     @Resource
     private DepartmentTypeDao departmentTypeDao;
+
+    @Override
+    public List<DepartmentType> findAllDepartmentType() {
+        return departmentTypeDao.findAllDepartmentType();
+    }
 }

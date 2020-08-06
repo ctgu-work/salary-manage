@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.DepartmentTypeDao">
+
+    <resultMap id="departType" type="com.ctgu.salary.po.DepartmentType">
+        <id column="depart_type_id" property="departTypeId" />
+        <result column="type" property="type" />
+    </resultMap>
+    <select id="findAllDepartmentType" resultMap="departType">
+        select * from department_type
+    </select>
+
+</mapper>

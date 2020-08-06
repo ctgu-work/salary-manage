@@ -1,5 +1,9 @@
 package com.ctgu.salary.service;
 
+import com.ctgu.salary.po.DepartmentType;
+
+import java.util.List;
+
 /**
  * @Description TODO
  * @Author wh_lan
@@ -8,4 +12,5 @@ package com.ctgu.salary.service;
  * @Version 1.0.0
  */
 public interface DepartmentTypeService {
+    List<DepartmentType> findAllDepartmentType();
 }
