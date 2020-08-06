@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
-@MapperScan("com.ctgu.salary.dao")
+@MapperScan("com.ctgu.salary.dao.*")
 @SpringBootApplication()
 public class SalaryApplication {
 

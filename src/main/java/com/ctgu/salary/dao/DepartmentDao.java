@@ -1,6 +1,9 @@
 package com.ctgu.salary.dao;
 
+import com.ctgu.salary.po.Department;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Description TODO
@@ -11,4 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface DepartmentDao {
+    int addDepartment(Department department);
+    int updateDepartment(Department department);
+    List<Department> findAllDepartment();
 }

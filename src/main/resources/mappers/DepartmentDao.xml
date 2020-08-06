@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.DepartmentDao">
+    <insert id="addDepartment"
+            parameterType="com.ctgu.salary.po.Department"
+            useGeneratedKeys="true" keyProperty="departId">
+		INSERT INTO
+		department(depart_name,depart_type_id,depart_phone,fax,description,father_depart_id,establish_date)
+		values(#{departName},#{departTypeId},#{departPhone},#{fax},#{description},#{fatherDepartId}
+		,#{establishDate})
+	</insert>
+
+
+	<resultMap id="depart" type="com.ctgu.salary.po.Department">
+		<id column="depart_id" property="departId" />
+		<result column="depart_name" property="departName" />
+		<result column="depart_type_id" property="departTypeId" />
+		<result column="depart_phone" property="departPhone" />
+		<result column="fax" property="fax" />
+		<result column="description" property="description" />
+		<result column="father_depart_id" property="fatherDepartId" />
+		<result column="establish_date" property="establishDate" />
+	</resultMap>
+	<select id="findAllDepartment" resultMap="depart">
+		SELECT * FROM department order by establish_date desc
+	</select>
+
+</mapper>
