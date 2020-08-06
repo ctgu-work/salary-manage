@@ -1,0 +1,11 @@
+package com.ctgu.salary.dao;
+
+/**
+ * @Description TODO
+ * @Author wh_lan
+ * @create 2020-08-06 15:06
+ * @ClassName DepartmentTypeDao
+ * @Version 1.0.0
+ */
+public interface DepartmentTypeDao {
+}

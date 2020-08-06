@@ -1,6 +1,7 @@
 package com.ctgu.salary.service.Impl;
 
 import com.ctgu.salary.dao.DepartmentDao;
+import com.ctgu.salary.dto.DepartmentDto;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.service.DepartmentService;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> findAllDepartment() {
+    public List<DepartmentDto> findAllDepartment() {
         return departmentDao.findAllDepartment();
     }
 }

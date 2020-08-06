@@ -1,5 +1,6 @@
 package com.ctgu.salary.controller;
 
+import com.ctgu.salary.dto.DepartmentDto;
 import com.ctgu.salary.dto.ResultBody;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.service.DepartmentService;
@@ -32,12 +33,18 @@ public class DepartmentController {
     public ResultBody findDepartment(@RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
                                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
         ResultBody resultBody = new ResultBody();
-        resultBody.setMsg("success");
-        resultBody.setStatusCode("200");
         PageHelper.startPage(startPage, pageSize);
-        List<Department> departments = departmentService.findAllDepartment();
-        PageInfo<Department> departmentPage = new PageInfo<>(departments);;
-        resultBody.setObject(departmentPage);
+        try{
+            List<DepartmentDto> departments = departmentService.findAllDepartment();
+            resultBody.setMsg("success");
+            resultBody.setStatusCode("200");
+            PageInfo<DepartmentDto> departmentPage = new PageInfo<>(departments);;
+            resultBody.setObject(departmentPage);
+        }
+        catch (Exception e){
+            resultBody.setMsg("error");
+            resultBody.setStatusCode("500");
+        }
         return resultBody;
     }
 

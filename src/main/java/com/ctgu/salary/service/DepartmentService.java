@@ -1,5 +1,6 @@
 package com.ctgu.salary.service;
 
+import com.ctgu.salary.dto.DepartmentDto;
 import com.ctgu.salary.po.Department;
 
 import java.util.List;
@@ -14,5 +15,5 @@ import java.util.List;
 public interface DepartmentService {
     int addDepartment(Department department);
     int updateDepartment(Department department);
-    List<Department> findAllDepartment();
+    List<DepartmentDto> findAllDepartment();
 }

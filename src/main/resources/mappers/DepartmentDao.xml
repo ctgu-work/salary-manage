@@ -13,7 +13,7 @@
 	</insert>
 
 
-	<resultMap id="depart" type="com.ctgu.salary.po.Department">
+	<resultMap id="depart" type="com.ctgu.salary.dto.DepartmentDto">
 		<id column="depart_id" property="departId" />
 		<result column="depart_name" property="departName" />
 		<result column="depart_type_id" property="departTypeId" />
@@ -22,9 +22,13 @@
 		<result column="description" property="description" />
 		<result column="father_depart_id" property="fatherDepartId" />
 		<result column="establish_date" property="establishDate" />
+		<result column="type" property="type" />
+		<result column="father_depart_name" property="fatherDepartName" />
 	</resultMap>
 	<select id="findAllDepartment" resultMap="depart">
-		SELECT * FROM department order by establish_date desc
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id order by establish_date desc
 	</select>
 
 </mapper>
