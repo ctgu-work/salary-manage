@@ -55,7 +55,6 @@ public class DepartmentController {
         return resultBody;
     }
 
-
     /**
      * @Author wh
      * @Description 全部部门名字
@@ -192,10 +191,14 @@ public class DepartmentController {
      * @return com.ctgu.salary.dto.ResultBody
      **/
     @RequestMapping(value = "/find-staff" , method = RequestMethod.GET )
-    public ResultBody findStaffsByDepartId(@RequestParam("departId") Integer departId){
+    public ResultBody findStaffsByDepartId(@RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
+                                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                           @RequestParam("departId") Integer departId){
         ResultBody resultBody = new ResultBody();
-        List<Staff> staff = departmentService.findStaffsByDepartID(departId);
-        resultBody.setResult(staff);
+        PageHelper.startPage(startPage, pageSize);
+        List<Staff> staffs = departmentService.findStaffsByDepartID(departId);
+        PageInfo<Staff> staffsPage = new PageInfo<>(staffs);
+        resultBody.setResult(staffsPage);
         resultBody.setStatusCode("200");
         resultBody.setStatusCode("success");
         return resultBody;
