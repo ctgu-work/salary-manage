@@ -1,6 +1,7 @@
 package com.ctgu.salary.service;
 
 import com.ctgu.salary.po.DepartmentType;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ import java.util.List;
  */
 public interface DepartmentTypeService {
     List<DepartmentType> findAllDepartmentType();
+    int delDepartTypeById(Integer id);
+    int addDepartType(String type);
+    DepartmentType findOneDepartmentType(String type);
+    int updateDepartType(Integer departTypeId, String type);
 }

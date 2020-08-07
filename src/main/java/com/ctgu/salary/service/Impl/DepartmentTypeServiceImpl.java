@@ -24,4 +24,24 @@ public class DepartmentTypeServiceImpl implements DepartmentTypeService {
     public List<DepartmentType> findAllDepartmentType() {
         return departmentTypeDao.findAllDepartmentType();
     }
+
+    @Override
+    public int delDepartTypeById(Integer id) {
+        return departmentTypeDao.delDepartTypeById(id);
+    }
+
+    @Override
+    public int addDepartType(String type) {
+        return departmentTypeDao.addDepartType(type);
+    }
+
+    @Override
+    public DepartmentType findOneDepartmentType(String type) {
+        return departmentTypeDao.findOneDepartmentType(type);
+    }
+
+    @Override
+    public int updateDepartType(Integer departTypeId, String type) {
+        return departmentTypeDao.updateDepartType(departTypeId,type);
+    }
 }

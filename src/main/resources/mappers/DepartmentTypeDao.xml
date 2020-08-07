@@ -12,4 +12,22 @@
         select * from department_type
     </select>
 
+    <delete id="delDepartTypeById" parameterType="INTEGER">
+		delete from department_type where depart_type_id = #{id}
+	</delete>
+
+    <insert id="addDepartType" parameterType="String" >
+		INSERT INTO department_type(type) values(#{type})
+	</insert>
+
+    <update id="updateDepartType">
+        UPDATE department_type
+        <set>
+            <if test="type != null">type=#{type},</if>
+        </set>
+        where depart_type_id =#{departTypeId}
+    </update>
+    <select id="findOneDepartmentType" parameterType="String" resultMap="departType">
+        select * from department_type where department_type.type=#{type}
+    </select>
 </mapper>

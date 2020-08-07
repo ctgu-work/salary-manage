@@ -100,8 +100,7 @@ public class DepartmentController {
     public ResultBody addOneDepartment(@RequestBody(required = false) Department department){
         ResultBody resultBody = new ResultBody();
 
-        DepartmentDto departmentFind = departmentService.findDepartmentByName(department.getDepartName());
-        if( departmentFind == null ){
+        if( departmentService.findDepartmentByName(department.getDepartName()) == null ){
             departmentService.addDepartment(department);
             resultBody.setMsg("success");
             resultBody.setStatusCode("200");
@@ -161,7 +160,7 @@ public class DepartmentController {
         ResultBody resultBody = new ResultBody();
         DepartmentDto department = departmentService.findDepartmentById(id);
         resultBody.setStatusCode("200");
-        resultBody.setStatusCode("success");
+        resultBody.setMsg("success");
         resultBody.setResult(department);
         return resultBody;
     }
@@ -202,8 +201,8 @@ public class DepartmentController {
                                            @RequestParam("departName") String departName){
         ResultBody resultBody = new ResultBody();
         PageHelper.startPage(startPage, pageSize);
-        DepartmentDto department = departmentService.findDepartmentByName(departName);
-        if( department != null ){
+        if( departmentService.findDepartmentByName(departName) != null ){
+            DepartmentDto department = departmentService.findDepartmentByName(departName);
             List<Staff> staffs = departmentService.findStaffsByDepartID(department.getDepartId());
             PageInfo<Staff> staffsPage = new PageInfo<>(staffs);
             resultBody.setResult(staffsPage);

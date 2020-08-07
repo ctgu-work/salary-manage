@@ -3,6 +3,7 @@ package com.ctgu.salary.dto;
 import com.ctgu.salary.po.Staff;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class StaffDto extends Staff {
     private String departName;
     private String positionName;
