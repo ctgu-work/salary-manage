@@ -39,8 +39,17 @@
 		SELECT depart_id,depart_name FROM department
 	</select>
 
-	<select id="findDepartmentByName" parameterType="String" resultType="com.ctgu.salary.po.Department">
-		SELECT * FROM department WHERE department.depart_name = #{departName}
+	<select id="findDepartmentByName" parameterType="String" resultType="com.ctgu.salary.dto.DepartmentDto">
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_name = #{departName}
+	</select>
+
+
+	<select id="findDepartmentByNameLike" parameterType="String" resultMap="depart">
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_name like "%"#{departName}"%"
 	</select>
 
 	<update id="updateTeacherInformation" parameterType="com.ctgu.salary.po.Department" keyProperty="departId" useGeneratedKeys="true">
@@ -57,14 +66,16 @@
 		where depart_id =#{departId}
 	</update>
 
-	<select id="findDepartmentById" parameterType="INTEGER" resultType="com.ctgu.salary.po.Department">
-		SELECT * FROM department WHERE department.depart_id = #{id}
+	<select id="findDepartmentById" parameterType="INTEGER" resultType="com.ctgu.salary.dto.DepartmentDto">
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_id = #{id}
 	</select>
 	<delete id="delDepartmentById" parameterType="INTEGER">
 		delete from department where depart_id = #{departId}
 	</delete>
 
-	<resultMap id="staffs" type="com.ctgu.salary.po.Staff">
+	<resultMap id="staffs" type="com.ctgu.salary.dto.StaffDto">
 		<id column="staff_id" property="staffId" />
 		<result column="sex" property="sex" />
 		<result column="position_id" property="positionId" />
@@ -91,9 +102,12 @@
 		<result column="birth" property="birth" />
 		<result column="work_time" property="workTime" />
 		<result column="att_work_time" property="attWorkTime" />
+		<result column="depart_name" property="departName" />
+		<result column="position_name" property="positionName" />
 	</resultMap>
 	<select id="findStaffsByDepartID" parameterType="INTEGER" resultMap="staffs">
-		SELECT * FROM staff where department_id = #{departId}
+		SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
+		staff.position_id = position.position_id and staff.department_id = #{departId}
 	</select>
 
 </mapper>

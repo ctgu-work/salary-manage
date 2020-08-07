@@ -21,8 +21,9 @@ public interface DepartmentDao {
     int updateDepartment(Department department);
     int delDepartmentById(Integer id);
     List<DepartmentName> findAllDepartmentName();
-    Department findDepartmentByName(String departName);
-    Department findDepartmentById(Integer id);
+    List<DepartmentDto> findDepartmentByNameLike(String departName);
+    DepartmentDto findDepartmentByName(String departName);
+    DepartmentDto findDepartmentById(Integer id);
     List<DepartmentDto> findAllDepartment();
     List<Staff> findStaffsByDepartID(Integer departId);
 }

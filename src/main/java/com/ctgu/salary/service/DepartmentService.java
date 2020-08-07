@@ -18,9 +18,10 @@ public interface DepartmentService {
     int addDepartment(Department department);
     int updateDepartment(Department department);
     int delDepartmentById(Integer id);
-    Department findDepartmentById(Integer id);
+    DepartmentDto findDepartmentById(Integer id);
     List<DepartmentName> findAllDepartmentName();
-    Department findDepartmentByName(String departName);
+    DepartmentDto findDepartmentByName(String departName);
+    List<DepartmentDto> findDepartmentByNameLike(String departName);
     List<DepartmentDto> findAllDepartment();
     List<Staff> findStaffsByDepartID(Integer departId);
 }

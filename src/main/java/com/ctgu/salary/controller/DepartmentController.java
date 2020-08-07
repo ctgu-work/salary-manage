@@ -100,7 +100,7 @@ public class DepartmentController {
     public ResultBody addOneDepartment(@RequestBody(required = false) Department department){
         ResultBody resultBody = new ResultBody();
 
-        Department departmentFind = departmentService.findDepartmentByName(department.getDepartName());
+        DepartmentDto departmentFind = departmentService.findDepartmentByName(department.getDepartName());
         if( departmentFind == null ){
             departmentService.addDepartment(department);
             resultBody.setMsg("success");
@@ -127,7 +127,7 @@ public class DepartmentController {
         departmentService.updateDepartment(department);
         resultBody.setMsg("update success");
         resultBody.setStatusCode("200");
-        Department updateDepartment = departmentService.findDepartmentById(department.getDepartId());
+        DepartmentDto updateDepartment = departmentService.findDepartmentById(department.getDepartId());
         resultBody.setResult(updateDepartment);
         return resultBody;
     }
@@ -159,7 +159,7 @@ public class DepartmentController {
     @RequestMapping(value = "/find-id" , method = RequestMethod.GET )
     public ResultBody findDepartById(@RequestParam("id") Integer id){
         ResultBody resultBody = new ResultBody();
-        Department department = departmentService.findDepartmentById(id);
+        DepartmentDto department = departmentService.findDepartmentById(id);
         resultBody.setStatusCode("200");
         resultBody.setStatusCode("success");
         resultBody.setResult(department);
@@ -174,12 +174,18 @@ public class DepartmentController {
      * @return com.ctgu.salary.dto.ResultBody
      **/
     @RequestMapping(value = "/find-name" , method = RequestMethod.GET )
-    public ResultBody findDepartByName(@RequestParam("departName") String departName){
+    public ResultBody findDepartByName(@RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                       @RequestParam("departName") String departName){
+
         ResultBody resultBody = new ResultBody();
-        Department department = departmentService.findDepartmentByName(departName);
-        resultBody.setResult(department);
         resultBody.setStatusCode("200");
-        resultBody.setStatusCode("success");
+        resultBody.setMsg("success");
+        if( departName.equals("") ) return resultBody;
+        List<DepartmentDto> departments = departmentService.findDepartmentByNameLike(departName);
+        PageHelper.startPage(startPage, pageSize);
+        PageInfo<DepartmentDto> departmentsPage = new PageInfo<>(departments);
+        resultBody.setResult(departmentsPage);
         return resultBody;
     }
 
@@ -193,14 +199,21 @@ public class DepartmentController {
     @RequestMapping(value = "/find-staff" , method = RequestMethod.GET )
     public ResultBody findStaffsByDepartId(@RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
                                            @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
-                                           @RequestParam("departId") Integer departId){
+                                           @RequestParam("departName") String departName){
         ResultBody resultBody = new ResultBody();
         PageHelper.startPage(startPage, pageSize);
-        List<Staff> staffs = departmentService.findStaffsByDepartID(departId);
-        PageInfo<Staff> staffsPage = new PageInfo<>(staffs);
-        resultBody.setResult(staffsPage);
-        resultBody.setStatusCode("200");
-        resultBody.setStatusCode("success");
+        DepartmentDto department = departmentService.findDepartmentByName(departName);
+        if( department != null ){
+            List<Staff> staffs = departmentService.findStaffsByDepartID(department.getDepartId());
+            PageInfo<Staff> staffsPage = new PageInfo<>(staffs);
+            resultBody.setResult(staffsPage);
+            resultBody.setStatusCode("200");
+            resultBody.setMsg("success");
+        }
+        else {
+            resultBody.setStatusCode("200");
+            resultBody.setMsg("null");
+        }
         return resultBody;
     }
 }

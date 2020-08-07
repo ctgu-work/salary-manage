@@ -39,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department findDepartmentById(Integer id) {
+    public DepartmentDto findDepartmentById(Integer id) {
         return departmentDao.findDepartmentById(id);
     }
 
@@ -49,8 +49,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department findDepartmentByName(String departName) {
+    public DepartmentDto findDepartmentByName(String departName) {
         return departmentDao.findDepartmentByName(departName);
+    }
+
+    @Override
+    public List<DepartmentDto> findDepartmentByNameLike(String departName) {
+        return departmentDao.findDepartmentByNameLike(departName);
     }
 
     @Override
