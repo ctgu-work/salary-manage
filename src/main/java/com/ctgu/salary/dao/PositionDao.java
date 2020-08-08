@@ -25,5 +25,5 @@ public interface PositionDao {
     int delPositionById( Integer positionId );
     int updatePosition(Position position);
     int addPosition(Position position);
-
+    List<PositionDto> findPositionByDepartId(Integer departId);
 }

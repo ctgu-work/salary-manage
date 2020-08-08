@@ -98,5 +98,11 @@
 		position(position_type_id,position_name,depart_id,position_man)
 		values(#{positionTypeId},#{positionName},#{departId},#{positionMan})
 	</insert>
+    <select id="findPositionByDepartId" parameterType="INTEGER" resultMap="position">
+		SELECT position.*,department.depart_name,position_type.type FROM position,department,position_type
+        where position.position_type_id = position_type.position_type_id and position.depart_id = department.depart_id
+        and position.depart_id = #{departId}
+	</select>
+
 
 </mapper>

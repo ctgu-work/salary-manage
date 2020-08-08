@@ -1,6 +1,9 @@
 package com.ctgu.salary.service;
 
 import com.ctgu.salary.dto.StaffDto;
+import com.ctgu.salary.po.Staff;
+
+import java.util.List;
 
 /**
  * @Description TODO
@@ -11,4 +14,10 @@ import com.ctgu.salary.dto.StaffDto;
  */
 public interface StaffService {
     StaffDto findStaffDetail(Integer staffId);
+    List<StaffDto> findAllStaff();
+    int updateStaffAvatar(String avatar);
+    int delStaffById(Integer staffId);
+    int updateStaff(Staff staff);
+    StaffDto findStaffByIdCard(String idCard);
+    int addStaff(Staff staff);
 }

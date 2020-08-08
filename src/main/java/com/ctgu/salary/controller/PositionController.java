@@ -96,6 +96,13 @@ public class PositionController {
 
 
 
+    /**
+     * @Author wh
+     * @Description 增加员工
+     * @Date 2020/8/8 12:53
+     * @Param [position]
+     * @return com.ctgu.salary.dto.ResultBody
+     **/
     @RequestMapping(value = "/add" , method = RequestMethod.POST )
     public ResultBody addOnePosition(@RequestBody(required = false) Position position){
         ResultBody resultBody = new ResultBody();

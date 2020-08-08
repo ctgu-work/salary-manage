@@ -1,7 +1,10 @@
 package com.ctgu.salary.dao;
 
 import com.ctgu.salary.dto.StaffDto;
+import com.ctgu.salary.po.Staff;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Description TODO
@@ -13,4 +16,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface StaffDao {
     StaffDto findStaffDetail(Integer staffId);
+    List<StaffDto> findAllStaff();
+    int updateStaffAvatar(String avatar);
+    int delStaffById(Integer staffId);
+    int updateStaff(Staff staff);
+    StaffDto findStaffByIdCard(String idCard);
+    int addStaff(Staff staff);
 }

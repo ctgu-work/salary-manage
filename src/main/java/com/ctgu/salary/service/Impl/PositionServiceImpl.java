@@ -66,4 +66,9 @@ public class PositionServiceImpl implements PositionService {
     public int addPosition(Position position) {
         return positionDao.addPosition(position);
     }
+
+    @Override
+    public List<PositionDto> findPositionByDepartId(Integer departId) {
+        return positionDao.findPositionByDepartId(departId);
+    }
 }
