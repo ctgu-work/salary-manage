@@ -3,9 +3,9 @@ package com.ctgu.salary.controller;
 import com.ctgu.salary.dto.DepartmentDto;
 import com.ctgu.salary.dto.DepartmentName;
 import com.ctgu.salary.dto.ResultBody;
+import com.ctgu.salary.dto.StaffDto;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.po.DepartmentType;
-import com.ctgu.salary.po.Staff;
 import com.ctgu.salary.service.DepartmentService;
 import com.ctgu.salary.service.DepartmentTypeService;
 import com.github.pagehelper.PageHelper;
@@ -203,8 +203,8 @@ public class DepartmentController {
         PageHelper.startPage(startPage, pageSize);
         if( departmentService.findDepartmentByName(departName) != null ){
             DepartmentDto department = departmentService.findDepartmentByName(departName);
-            List<Staff> staffs = departmentService.findStaffsByDepartID(department.getDepartId());
-            PageInfo<Staff> staffsPage = new PageInfo<>(staffs);
+            List<StaffDto> staffs = departmentService.findStaffsByDepartID(department.getDepartId());
+            PageInfo<StaffDto> staffsPage = new PageInfo<>(staffs);
             resultBody.setResult(staffsPage);
             resultBody.setStatusCode("200");
             resultBody.setMsg("success");

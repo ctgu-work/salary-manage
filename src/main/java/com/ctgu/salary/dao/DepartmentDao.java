@@ -2,6 +2,7 @@ package com.ctgu.salary.dao;
 
 import com.ctgu.salary.dto.DepartmentDto;
 import com.ctgu.salary.dto.DepartmentName;
+import com.ctgu.salary.dto.StaffDto;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.po.Staff;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,5 +26,5 @@ public interface DepartmentDao {
     DepartmentDto findDepartmentByName(String departName);
     DepartmentDto findDepartmentById(Integer id);
     List<DepartmentDto> findAllDepartment();
-    List<Staff> findStaffsByDepartID(Integer departId);
+    List<StaffDto> findStaffsByDepartID(Integer departId);
 }

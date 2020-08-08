@@ -2,6 +2,7 @@ package com.ctgu.salary.service;
 
 import com.ctgu.salary.dto.DepartmentDto;
 import com.ctgu.salary.dto.DepartmentName;
+import com.ctgu.salary.dto.StaffDto;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.po.Staff;
 
@@ -23,5 +24,5 @@ public interface DepartmentService {
     DepartmentDto findDepartmentByName(String departName);
     List<DepartmentDto> findDepartmentByNameLike(String departName);
     List<DepartmentDto> findAllDepartment();
-    List<Staff> findStaffsByDepartID(Integer departId);
+    List<StaffDto> findStaffsByDepartID(Integer departId);
 }

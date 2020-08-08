@@ -3,6 +3,7 @@ package com.ctgu.salary.service.Impl;
 import com.ctgu.salary.dao.DepartmentDao;
 import com.ctgu.salary.dto.DepartmentDto;
 import com.ctgu.salary.dto.DepartmentName;
+import com.ctgu.salary.dto.StaffDto;
 import com.ctgu.salary.po.Department;
 import com.ctgu.salary.po.Staff;
 import com.ctgu.salary.service.DepartmentService;
@@ -64,7 +65,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Staff> findStaffsByDepartID(Integer departId) {
+    public List<StaffDto> findStaffsByDepartID(Integer departId) {
         return departmentDao.findStaffsByDepartID(departId);
     }
 }
