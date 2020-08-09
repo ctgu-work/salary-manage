@@ -1,6 +1,10 @@
 package com.ctgu.salary.dao;
 
+import com.ctgu.salary.dto.DepartmentDto;
+import com.ctgu.salary.dto.DepartmentName;
+import com.ctgu.salary.dto.StaffDto;
 import com.ctgu.salary.po.Department;
+import com.ctgu.salary.po.Staff;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,5 +20,11 @@ import java.util.List;
 public interface DepartmentDao {
     int addDepartment(Department department);
     int updateDepartment(Department department);
-    List<Department> findAllDepartment();
+    int delDepartmentById(Integer id);
+    List<DepartmentName> findAllDepartmentName();
+    List<DepartmentDto> findDepartmentByNameLike(String departName);
+    DepartmentDto findDepartmentByName(String departName);
+    DepartmentDto findDepartmentById(Integer id);
+    List<DepartmentDto> findAllDepartment();
+    List<StaffDto> findStaffsByDepartID(Integer departId);
 }

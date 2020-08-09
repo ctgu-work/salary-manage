@@ -1,6 +1,10 @@
 package com.ctgu.salary.service;
 
+import com.ctgu.salary.dto.DepartmentDto;
+import com.ctgu.salary.dto.DepartmentName;
+import com.ctgu.salary.dto.StaffDto;
 import com.ctgu.salary.po.Department;
+import com.ctgu.salary.po.Staff;
 
 import java.util.List;
 
@@ -14,5 +18,11 @@ import java.util.List;
 public interface DepartmentService {
     int addDepartment(Department department);
     int updateDepartment(Department department);
-    List<Department> findAllDepartment();
+    int delDepartmentById(Integer id);
+    DepartmentDto findDepartmentById(Integer id);
+    List<DepartmentName> findAllDepartmentName();
+    DepartmentDto findDepartmentByName(String departName);
+    List<DepartmentDto> findDepartmentByNameLike(String departName);
+    List<DepartmentDto> findAllDepartment();
+    List<StaffDto> findStaffsByDepartID(Integer departId);
 }

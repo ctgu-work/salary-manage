@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.StaffDao">
+
+    <resultMap id="staffs" type="com.ctgu.salary.dto.StaffDto">
+        <id column="staff_id" property="staffId" />
+        <result column="sex" property="sex" />
+        <result column="position_id" property="positionId" />
+        <result column="highest_degree" property="highestDegree" />
+        <result column="highest_education" property="highestEducation" />
+        <result column="blood_type" property="bloodType" />
+        <result column="marital_type" property="maritalType" />
+        <result column="political_type" property="politicalType" />
+        <result column="nation" property="nation" />
+        <result column="department_id" property="departmentId" />
+        <result column="employee_form" property="employeeForm" />
+        <result column="personnel_source" property="personnelSource" />
+        <result column="id_card" property="idCard" />
+        <result column="staff_name" property="staffName" />
+        <result column="avatar" property="avatar" />
+        <result column="birth_location" property="birthLocation" />
+        <result column="hometown" property="hometown" />
+        <result column="email" property="email" />
+        <result column="phone_number" property="phoneNumber" />
+        <result column="school" property="school" />
+        <result column="major" property="major" />
+        <result column="height" property="height" />
+        <result column="graduate_time" property="graduateTime" />
+        <result column="birth" property="birth" />
+        <result column="work_time" property="workTime" />
+        <result column="att_work_time" property="attWorkTime" />
+        <result column="depart_name" property="departName" />
+        <result column="position_name" property="positionName" />
+    </resultMap>
+
+
+    <select id="findStaffDetail" parameterType="INTEGER" resultType="com.ctgu.salary.dto.StaffDto">
+        SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
+        staff.position_id = position.position_id and staff.staff_id = #{staffId}
+    </select>
+    <select id="findAllStaff" resultMap="staffs">
+		SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
+        staff.position_id = position.position_id
+	</select>
+
+    <update id="updateStaff" parameterType="com.ctgu.salary.po.Staff" keyProperty="staffId" useGeneratedKeys="true">
+        UPDATE staff
+        <set>
+            <if test="sex != null">sex=#{sex},</if>
+            <if test="positionId != null">position_id=#{positionId},</if>
+            <if test="highestDegree != null">highest_degree=#{highestDegree},</if>
+            <if test="highestEducation != null">highest_education=#{highestEducation},</if>
+            <if test="bloodType != null">blood_type=#{bloodType},</if>
+            <if test="maritalType != null">marital_type=#{maritalType},</if>
+            <if test="politicalType != null">political_type=#{politicalType},</if>
+            <if test="nation != null">nation=#{nation},</if>
+            <if test="departmentId != null">department_id=#{departmentId},</if>
+            <if test="employeeForm != null">employee_form=#{employeeForm},</if>
+            <if test="personnelSource != null">personnel_source=#{personnelSource},</if>
+            <if test="idCard != null">id_card=#{idCard},</if>
+            <if test="staffName != null">staff_name=#{staffName},</if>
+            <if test="avatar != null">avatar=#{avatar},</if>
+            <if test="birthLocation != null">birth_location=#{birthLocation},</if>
+            <if test="hometown != null">hometown=#{hometown},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="phoneNumber != null">phone_number=#{phoneNumber},</if>
+            <if test="school != null">school=#{school},</if>
+            <if test="major != null">major=#{major},</if>
+            <if test="height != null">height=#{height},</if>
+            <if test="graduateTime != null">graduate_time=#{graduateTime},</if>
+            <if test="birth != null">birth=#{birth},</if>
+            <if test="workTime != null">work_time=#{workTime},</if>
+            <if test="attWorkTime != null">att_work_time=#{attWorkTime},</if>
+        </set>
+        where staff_id =#{staffId}
+    </update>
+
+    <update id="updateStaffAvatar">
+        UPDATE staff
+        <set>
+            <if test="avatar != null">avatar=#{avatar},</if>
+        </set>
+    </update>
+
+    <delete id="delStaffById" parameterType="INTEGER">
+		delete from staff where staff_id = #{staffId}
+	</delete>
+
+    <select id="findStaffByIdCard" parameterType="String" resultType="com.ctgu.salary.dto.StaffDto">
+        SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
+        staff.position_id = position.position_id and staff.id_card = #{idCard}
+    </select>
+
+    <insert id="addStaff"
+            parameterType="com.ctgu.salary.po.Staff"
+            useGeneratedKeys="true" keyProperty="staffId">
+		INSERT INTO
+		staff(att_work_time,work_time,birth,graduate_time,height,major,school,phone_number,email,
+		hometown,birth_location,avatar,staff_name,id_card,personnel_source,employee_form,department_id,nation,
+		political_type,marital_type,blood_type,highest_education,highest_degree,position_id,sex)
+		values(#{attWorkTime},#{workTime},#{birth},#{graduateTime},#{height},#{major}
+		,#{school},#{phoneNumber},#{email},#{hometown},#{birthLocation},#{avatar},#{staffName},#{idCard},
+		#{personnelSource},#{employeeForm},#{departmentId},#{nation},#{politicalType},#{maritalType},
+		#{bloodType},#{highestEducation},#{highestDegree},#{positionId},#{sex})
+	</insert>
+
+</mapper>

@@ -13,7 +13,7 @@
 	</insert>
 
 
-	<resultMap id="depart" type="com.ctgu.salary.po.Department">
+	<resultMap id="depart" type="com.ctgu.salary.dto.DepartmentDto">
 		<id column="depart_id" property="departId" />
 		<result column="depart_name" property="departName" />
 		<result column="depart_type_id" property="departTypeId" />
@@ -22,9 +22,92 @@
 		<result column="description" property="description" />
 		<result column="father_depart_id" property="fatherDepartId" />
 		<result column="establish_date" property="establishDate" />
+		<result column="type" property="type" />
+		<result column="father_depart_name" property="fatherDepartName" />
 	</resultMap>
 	<select id="findAllDepartment" resultMap="depart">
-		SELECT * FROM department order by establish_date desc
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id order by establish_date desc
+	</select>
+
+	<resultMap id="departName" type="com.ctgu.salary.dto.DepartmentName">
+		<id column="depart_id" property="departId" />
+		<result column="depart_name" property="departName" />
+	</resultMap>
+	<select id="findAllDepartmentName" resultMap="departName">
+		SELECT depart_id,depart_name FROM department
+	</select>
+
+	<select id="findDepartmentByName" parameterType="String" resultType="com.ctgu.salary.dto.DepartmentDto">
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_name = #{departName}
+	</select>
+
+
+	<select id="findDepartmentByNameLike" parameterType="String" resultMap="depart">
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_name like "%"#{departName}"%"
+	</select>
+
+	<update id="updateTeacherInformation" parameterType="com.ctgu.salary.po.Department" keyProperty="departId" useGeneratedKeys="true">
+		UPDATE department
+		<set>
+			<if test="departName != null">depart_name=#{departName},</if>
+			<if test="departTypeId != null">depart_type_id=#{departTypeId},</if>
+			<if test="departPhone != null">depart_phone=#{departPhone},</if>
+			<if test="fax != null">fax=#{fax},</if>
+			<if test="description != null">description=#{description},</if>
+			<if test="fatherDepartId != null">father_depart_id=#{fatherDepartId},</if>
+			<if test="establishDate != null">establish_date =#{establishDate},</if>
+		</set>
+		where depart_id =#{departId}
+	</update>
+
+	<select id="findDepartmentById" parameterType="INTEGER" resultType="com.ctgu.salary.dto.DepartmentDto">
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_id = #{id}
+	</select>
+	<delete id="delDepartmentById" parameterType="INTEGER">
+		delete from department where depart_id = #{departId}
+	</delete>
+
+	<resultMap id="staffs" type="com.ctgu.salary.dto.StaffDto">
+		<id column="staff_id" property="staffId" />
+		<result column="sex" property="sex" />
+		<result column="position_id" property="positionId" />
+		<result column="highest_degree" property="highestDegree" />
+		<result column="highest_education" property="highestEducation" />
+		<result column="blood_type" property="bloodType" />
+		<result column="marital_type" property="maritalType" />
+		<result column="political_type" property="politicalType" />
+		<result column="nation" property="nation" />
+		<result column="department_id" property="departmentId" />
+		<result column="employee_form" property="employeeForm" />
+		<result column="personnel_source" property="personnelSource" />
+		<result column="id_card" property="idCard" />
+		<result column="staff_name" property="staffName" />
+		<result column="avatar" property="avatar" />
+		<result column="birth_location" property="birthLocation" />
+		<result column="hometown" property="hometown" />
+		<result column="email" property="email" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="school" property="school" />
+		<result column="major" property="major" />
+		<result column="height" property="height" />
+		<result column="graduate_time" property="graduateTime" />
+		<result column="birth" property="birth" />
+		<result column="work_time" property="workTime" />
+		<result column="att_work_time" property="attWorkTime" />
+		<result column="depart_name" property="departName" />
+		<result column="position_name" property="positionName" />
+	</resultMap>
+	<select id="findStaffsByDepartID" parameterType="INTEGER" resultMap="staffs">
+		SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
+		staff.position_id = position.position_id and staff.department_id = #{departId}
 	</select>
 
 </mapper>
