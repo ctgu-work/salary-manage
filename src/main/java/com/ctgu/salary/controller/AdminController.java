@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create: 2020-08-06 15:27
  **/
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -28,18 +29,18 @@ public class AdminController {
         if(admin == null){
             resultBody.setMsg("用户名密码为空！");
             resultBody.setStatusCode("500");
-            resultBody.setObject(null);
+            resultBody.setResult(null);
             return resultBody;
         }
         Admin result = adminService.adminLogin(admin);
         if(result != null){
-            resultBody.setObject(result);
+            resultBody.setResult(result);
             resultBody.setStatusCode("200");
             resultBody.setMsg("登录成功");
         }else {
             resultBody.setMsg("用户名或密码错误！");
             resultBody.setStatusCode("500");
-            resultBody.setObject(admin);
+            resultBody.setResult(admin);
         }
         return resultBody;
 
