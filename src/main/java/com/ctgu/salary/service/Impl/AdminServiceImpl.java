@@ -22,4 +22,9 @@ public class AdminServiceImpl implements AdminService {
     public Admin adminLogin(Admin admin) {
         return adminDao.selectAdminByUsernameAndPassword(admin);
     }
+
+    @Override
+    public Admin findByUsername(String username) {
+        return adminDao.selectAdminByUsername(username);
+    }
 }

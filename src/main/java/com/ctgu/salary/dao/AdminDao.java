@@ -15,4 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminDao {
     Admin selectAdminByUsernameAndPassword(@Param("admin")Admin admin );
+
+    Admin selectAdminByUsername(@Param("username") String username);
 }

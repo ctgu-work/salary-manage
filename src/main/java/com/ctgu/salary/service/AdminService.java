@@ -11,4 +11,6 @@ import com.ctgu.salary.po.Admin;
 
 public interface AdminService {
     Admin adminLogin(Admin admin);
+
+    Admin findByUsername(String username);
 }
