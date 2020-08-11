@@ -52,7 +52,7 @@
 		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_name like "%"#{departName}"%"
 	</select>
 
-	<update id="updateTeacherInformation" parameterType="com.ctgu.salary.po.Department" keyProperty="departId" useGeneratedKeys="true">
+	<update id="updateDepartment" parameterType="com.ctgu.salary.po.Department" keyProperty="departId" useGeneratedKeys="true">
 		UPDATE department
 		<set>
 			<if test="departName != null">depart_name=#{departName},</if>
