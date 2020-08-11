@@ -138,8 +138,7 @@ public class DepartmentController {
      * @Param [departId]
      * @return com.ctgu.salary.dto.ResultBody
      **/
-    //??是否要改成批量删除
-    @RequestMapping(value = "/del" , method = RequestMethod.POST )
+    @RequestMapping(value = "/del" , method = RequestMethod.GET )
     public ResultBody delDepartById(@RequestParam("departId") Integer departId){
         ResultBody resultBody = new ResultBody();
         departmentService.delDepartmentById(departId);

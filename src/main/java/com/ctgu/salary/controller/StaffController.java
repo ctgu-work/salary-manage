@@ -202,7 +202,7 @@ public class StaffController {
      * @Param [staffId]
      * @return com.ctgu.salary.dto.ResultBody
      **/
-    @PostMapping("/del")
+    @GetMapping("/del")
     public ResultBody delStaff(@RequestParam("staffId")Integer staffId){
         ResultBody resultBody = new ResultBody();
         staffService.delStaffById(staffId);

@@ -104,7 +104,7 @@ public class DepartmentTypeController {
      * @Param [id]
      * @return com.ctgu.salary.dto.ResultBody
      **/
-    @RequestMapping(value = "/del" , method = RequestMethod.POST )
+    @RequestMapping(value = "/del" , method = RequestMethod.GET )
     public ResultBody delOneDepartmentType(@RequestParam("id")Integer id){
         ResultBody resultBody = new ResultBody();
         resultBody.setMsg("success");
