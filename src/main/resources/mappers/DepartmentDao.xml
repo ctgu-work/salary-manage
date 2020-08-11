@@ -66,6 +66,13 @@
 		where depart_id =#{departId}
 	</update>
 
+
+	<select id="findDepartmentByIdList" parameterType="INTEGER" resultMap="depart">
+		SELECT a.*,b.depart_name as father_depart_name, department_type.type
+		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type
+		WHERE a.depart_type_id = department_type.depart_type_id and a.depart_id = #{id}
+	</select>
+
 	<select id="findDepartmentById" parameterType="INTEGER" resultType="com.ctgu.salary.dto.DepartmentDto">
 		SELECT a.*,b.depart_name as father_depart_name, department_type.type
 		FROM department a LEFT JOIN department b on a.father_depart_id = b.depart_id , department_type

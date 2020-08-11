@@ -46,10 +46,10 @@ public class DepartmentController {
     public ResultBody findDepartment(@RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
                                      @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
         ResultBody resultBody = new ResultBody();
-        PageHelper.startPage(startPage, pageSize);
         List<DepartmentDto> departments = departmentService.findAllDepartment();
         resultBody.setMsg("success");
         resultBody.setStatusCode("200");
+        PageHelper.startPage(startPage, pageSize);
         PageInfo<DepartmentDto> departmentPage = new PageInfo<>(departments);
         resultBody.setResult(departmentPage);
         return resultBody;
@@ -156,12 +156,16 @@ public class DepartmentController {
      * @return com.ctgu.salary.dto.ResultBody
      **/
     @RequestMapping(value = "/find-id" , method = RequestMethod.GET )
-    public ResultBody findDepartById(@RequestParam("id") Integer id){
+    public ResultBody findDepartById(@RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
+                                     @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                     @RequestParam("id") Integer id){
         ResultBody resultBody = new ResultBody();
-        DepartmentDto department = departmentService.findDepartmentById(id);
+        List<DepartmentDto> departments = departmentService.findDepartmentByIdList(id);
         resultBody.setStatusCode("200");
         resultBody.setMsg("success");
-        resultBody.setResult(department);
+        PageHelper.startPage(startPage, pageSize);
+        PageInfo<DepartmentDto> departmentPage = new PageInfo<>(departments);
+        resultBody.setResult(departmentPage);
         return resultBody;
     }
 

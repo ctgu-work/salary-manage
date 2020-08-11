@@ -26,5 +26,6 @@ public interface DepartmentDao {
     DepartmentDto findDepartmentByName(String departName);
     DepartmentDto findDepartmentById(Integer id);
     List<DepartmentDto> findAllDepartment();
+    List<DepartmentDto> findDepartmentByIdList(Integer id);
     List<StaffDto> findStaffsByDepartID(Integer departId);
 }
