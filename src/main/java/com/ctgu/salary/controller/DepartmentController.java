@@ -106,8 +106,8 @@ public class DepartmentController {
             resultBody.setStatusCode("200");
         }
         else{
-            resultBody.setMsg("exist");
-            resultBody.setStatusCode("302");
+            resultBody.setMsg("已经存在");
+            resultBody.setStatusCode("200");
         }
         resultBody.setResult(department);
         return resultBody;
@@ -124,7 +124,7 @@ public class DepartmentController {
     public ResultBody updateOneDepartment(@RequestBody(required = false) Department department){
         ResultBody resultBody = new ResultBody();
         departmentService.updateDepartment(department);
-        resultBody.setMsg("update success");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         DepartmentDto updateDepartment = departmentService.findDepartmentById(department.getDepartId());
         resultBody.setResult(updateDepartment);
@@ -142,7 +142,7 @@ public class DepartmentController {
     public ResultBody delDepartById(@RequestParam("departId") Integer departId){
         ResultBody resultBody = new ResultBody();
         departmentService.delDepartmentById(departId);
-        resultBody.setMsg("del success");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         return resultBody;
     }
@@ -215,7 +215,7 @@ public class DepartmentController {
         }
         else {
             resultBody.setStatusCode("200");
-            resultBody.setMsg("null");
+            resultBody.setMsg("查找为空");
         }
         return resultBody;
     }

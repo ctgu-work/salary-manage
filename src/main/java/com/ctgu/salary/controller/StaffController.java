@@ -131,7 +131,7 @@ public class StaffController {
                     || extension.equalsIgnoreCase(".jpeg")){
                 String avatarUrl = OssUtil.upLoadFile(avatarName,multipartFile);
                 if( avatarUrl.equals("error") ) {
-                    resultBody.setMsg("error");
+                    resultBody.setMsg("上传失败");
                     resultBody.setStatusCode("500");
                 }
                 else {
@@ -142,12 +142,12 @@ public class StaffController {
                 }
             }
             else{
-                resultBody.setMsg("not img");
+                resultBody.setMsg("请上传图片");
                 resultBody.setStatusCode("500");
             }
         }
         else{
-            resultBody.setMsg("error");
+            resultBody.setMsg("上传失败");
             resultBody.setStatusCode("500");
         }
         return resultBody;
@@ -169,8 +169,8 @@ public class StaffController {
             resultBody.setStatusCode("200");
         }
         else{
-            resultBody.setMsg("exist");
-            resultBody.setStatusCode("302");
+            resultBody.setMsg("已经存在");
+            resultBody.setStatusCode("200");
         }
         resultBody.setResult(staff);
         return resultBody;
@@ -188,7 +188,7 @@ public class StaffController {
     public ResultBody updateOneStaff(@RequestBody(required = false) Staff staff){
         ResultBody resultBody = new ResultBody();
         staffService.updateStaff(staff);
-        resultBody.setMsg("update success");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         StaffDto updateStaff = staffService.findStaffDetail(staff.getStaffId());
         resultBody.setResult(updateStaff);
@@ -206,7 +206,7 @@ public class StaffController {
     public ResultBody delStaff(@RequestParam("staffId")Integer staffId){
         ResultBody resultBody = new ResultBody();
         staffService.delStaffById(staffId);
-        resultBody.setMsg("del success");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         return resultBody;
     }
@@ -223,7 +223,7 @@ public class StaffController {
     public ResultBody findByIdCard(@RequestParam("idCard")String idCard){
         ResultBody resultBody = new ResultBody();
         StaffDto staff = staffService.findStaffByIdCard(idCard);
-        resultBody.setMsg("find success");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         resultBody.setResult(staff);
         return resultBody;

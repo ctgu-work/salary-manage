@@ -112,7 +112,7 @@ public class PositionController {
             resultBody.setStatusCode("200");
         }
         else{
-            resultBody.setMsg("exist");
+            resultBody.setMsg("已经存在");
             resultBody.setStatusCode("302");
         }
         resultBody.setResult(position);
@@ -130,7 +130,7 @@ public class PositionController {
     public ResultBody updateOnePosition(@RequestBody(required = false) Position position){
         ResultBody resultBody = new ResultBody();
         positionService.updatePosition(position);
-        resultBody.setMsg("update success");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         PositionDto updatePosition = positionService.findPositionById(position.getDepartId());
         resultBody.setResult(updatePosition);
@@ -148,7 +148,7 @@ public class PositionController {
     public ResultBody delOnePositionById(@RequestParam("positionId") Integer positionId){
         ResultBody resultBody = new ResultBody();
         positionService.delPositionById(positionId);
-        resultBody.setMsg("del success");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         return resultBody;
     }
@@ -236,7 +236,7 @@ public class PositionController {
             resultBody.setMsg("success");
         } else {
             resultBody.setStatusCode("200");
-            resultBody.setMsg("null");
+            resultBody.setMsg("查找为空");
         }
         return resultBody;
     }

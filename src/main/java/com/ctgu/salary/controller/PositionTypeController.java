@@ -68,7 +68,7 @@ public class PositionTypeController {
             resultBody.setResult(positionType);
         }
         else{
-            resultBody.setMsg("exist");
+            resultBody.setMsg("已经存在");
             resultBody.setStatusCode("200");
         }
         return resultBody;
