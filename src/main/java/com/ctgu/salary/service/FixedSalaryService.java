@@ -20,4 +20,6 @@ public interface FixedSalaryService {
     FixedSalaryDto selectAllFixedSalaryByDepartIdAndStaffId(Integer departId,Integer staffId);
     List<FixedSalaryDto> selectAllFixedSalaryByDepartId(Integer departId);
     void updateByDepartId(FixedSalaryDto fixedSalaryDto);
+
+    List<FixedSalaryDto> selectFixedSalaryByDepartIdAndSection(Integer departId,Integer left,Integer right);
 }

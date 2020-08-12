@@ -41,5 +41,10 @@ public class FixedSalaryServiceImpl implements FixedSalaryService {
         fixedSalaryDao.updateByDepartId(fixedSalaryDto);
     }
 
+    @Override
+    public List<FixedSalaryDto> selectFixedSalaryByDepartIdAndSection(Integer departId, Integer left, Integer right) {
+        return fixedSalaryDao.selectAllFixedSalaryByDepartIdAndSection( departId, left, right);
+    }
+
 
 }

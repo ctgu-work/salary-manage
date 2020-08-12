@@ -106,5 +106,21 @@ public class FixedSalaryController {
         return resultBody;
     }
 
-
+    @GetMapping("/getByDepartIdAndSection")
+    public ResultBody getByDepartIdAndSection(@RequestParam("depardId") Integer departId,
+                                              @RequestParam(value = "left",required = true) Integer left,
+                                              @RequestParam(value = "right",required = true) Integer right,
+                                              @RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
+                                              @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
+                                              ){
+        ResultBody resultBody = new ResultBody();
+        PageHelper.startPage(startPage,pageSize);
+        List<FixedSalaryDto> list = null;
+        list = fixedSalaryService.selectFixedSalaryByDepartIdAndSection(departId,left,right);
+        PageInfo<FixedSalaryDto> pegeInfo = new PageInfo<>(list);
+        resultBody.setResult(pegeInfo);
+        resultBody.setMsg("查询成功");
+        resultBody.setStatusCode("200");
+        return resultBody;
+    }
 }

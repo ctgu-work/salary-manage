@@ -33,4 +33,11 @@
         </set>
       WHERE depart_id = #{departId}
     </update>
+
+    <select id="selectAllFixedSalaryByDepartIdAndSection" resultType="com.ctgu.salary.dto.FixedSalaryDto">
+      select salary.fixed_salary.fixed_salary_id,salary.staff.staff_id,salary.staff.staff_name,salary.department.depart_id,salary.department.depart_name,
+      salary.fixed_salary.basic_salary,salary.fixed_salary.subsidy,salary.fixed_salary.remarks
+      from fixed_salary left join department on fixed_salary.depart_id = department.depart_id left join staff on staff.staff_id = fixed_salary.fixed_salary_id
+      where #{depart_id} = fixed_salary.depart_id and fixed_salary.staff_id = staff.staff_id and basic_salary BETWEEN #{left} and #{right}
+    </select>
 </mapper>

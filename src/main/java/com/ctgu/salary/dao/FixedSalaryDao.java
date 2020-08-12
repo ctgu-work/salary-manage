@@ -20,4 +20,5 @@ public interface FixedSalaryDao {
     FixedSalaryDto selectAllFixedSalaryByDepartIdAndStaffId(@Param("depart_id") Integer departId, @Param("staff_id") Integer staffId);
     List<FixedSalaryDto> selectAllFixedSalaryByDepartId(@Param("depart_id") Integer departId);
     void updateByDepartId(FixedSalaryDto fixedSalaryDto);
+    List<FixedSalaryDto> selectAllFixedSalaryByDepartIdAndSection(@Param("depart_id") Integer departId,@Param("left") Integer left,@Param("right") Integer right);
 }
