@@ -37,10 +37,10 @@ public class AdminController {
     public ResultBody adminLogin(@RequestParam("username") String username,
                                  @RequestParam("password") String password){
         ResultBody resultBody = new ResultBody();
-        resultBody.setStatusCode("500");
+        resultBody.setStatusCode("200");
         resultBody.setMsg("error");
 
-
+        System.err.println(username);
         Admin admin = adminService.findByUsername(username);
         String token = JwtUtils.sign(username, Md5Salt.Md5SaltCrypt(username));
         //密码正确
