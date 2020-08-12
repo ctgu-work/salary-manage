@@ -17,8 +17,8 @@
     </select>
 
     <insert id="addOperateLog" parameterType="com.ctgu.salary.po.OperateLog" >
-		INSERT INTO position_type(operater_id,operate_date,operate_msg)
-		values(#{operaterId},NOW(),#{operateMsg})
+		INSERT INTO operate_log(operater_id,operate_date,operate_msg,operater_name)
+		values(#{operaterId},NOW(),#{operateMsg},#{operaterName})
 	</insert>
 
 </mapper>

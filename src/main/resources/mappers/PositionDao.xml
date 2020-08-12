@@ -95,7 +95,7 @@
             parameterType="com.ctgu.salary.po.Position"
             useGeneratedKeys="true" keyProperty="positionId">
 		INSERT INTO
-		position(position_type_id,position_name,depart_id,position_man)
+		`position` (position_type_id,position_name,depart_id,position_man)
 		values(#{positionTypeId},#{positionName},#{departId},#{positionMan})
 	</insert>
     <select id="findPositionByDepartId" parameterType="INTEGER" resultMap="position">

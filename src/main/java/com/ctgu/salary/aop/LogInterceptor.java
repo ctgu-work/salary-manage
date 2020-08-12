@@ -7,9 +7,12 @@ import com.ctgu.salary.service.OperateLogService;
 import com.ctgu.salary.utils.RedisUtils;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,13 +23,15 @@ import javax.servlet.http.HttpServletResponse;
  * @ClassName LogInterceptor
  * @Version 1.0.0
  */
+
 public class LogInterceptor implements HandlerInterceptor {
 
     @Autowired
     private AdminService adminService;
     @Autowired
     private OperateLogService operateLogService;
-
+    @Autowired
+    private RedisUtils redisUtils ;
     public LogInterceptor() {
 
     }
@@ -37,10 +42,9 @@ public class LogInterceptor implements HandlerInterceptor {
             throws Exception {
         StringBuffer str = request.getRequestURL();
         String url = new String(str);
+        if( WebUtils.toHttp(request).getHeader("Authorization") == null ) return true;
         String token = WebUtils.toHttp(request).getHeader("Authorization");
-        RedisUtils redisUtils = new RedisUtils();
         String username = (String) redisUtils.get(token);
-        System.out.println(username);
         Admin admin = adminService.findByUsername(username);
         OperateLog operateLog = new OperateLog();
         operateLog.setOperaterId(admin.getAdminId());
