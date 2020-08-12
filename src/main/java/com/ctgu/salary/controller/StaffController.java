@@ -202,12 +202,30 @@ public class StaffController {
      * @Param [staffId]
      * @return com.ctgu.salary.dto.ResultBody
      **/
-    @PostMapping("/del")
+    @GetMapping("/del")
     public ResultBody delStaff(@RequestParam("staffId")Integer staffId){
         ResultBody resultBody = new ResultBody();
         staffService.delStaffById(staffId);
         resultBody.setMsg("del success");
         resultBody.setStatusCode("200");
+        return resultBody;
+    }
+
+
+    /**
+     * @Author wh
+     * @Description 通过身份证查找
+     * @Date 2020/8/11 17:09
+     * @Param [idCard]
+     * @return com.ctgu.salary.dto.ResultBody
+     **/
+    @GetMapping("/find-idCard")
+    public ResultBody findByIdCard(@RequestParam("idCard")String idCard){
+        ResultBody resultBody = new ResultBody();
+        StaffDto staff = staffService.findStaffByIdCard(idCard);
+        resultBody.setMsg("find success");
+        resultBody.setStatusCode("200");
+        resultBody.setResult(staff);
         return resultBody;
     }
 

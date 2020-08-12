@@ -25,4 +25,5 @@ public interface DepartmentService {
     List<DepartmentDto> findDepartmentByNameLike(String departName);
     List<DepartmentDto> findAllDepartment();
     List<StaffDto> findStaffsByDepartID(Integer departId);
+    List<DepartmentDto> findDepartmentByIdList(Integer id);
 }

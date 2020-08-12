@@ -50,6 +50,7 @@ public class AdminController {
              * 2.设置返回体内容（放一个token和admin）
              */
             redisUtils.set(username,token,60*60);
+            redisUtils.set(token,username,60*60);
             resultBody.setMsg("success");
             resultBody.setStatusCode("200");
             Map<String,Object> map = new HashMap<>();

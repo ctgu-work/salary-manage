@@ -68,4 +68,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<StaffDto> findStaffsByDepartID(Integer departId) {
         return departmentDao.findStaffsByDepartID(departId);
     }
+
+    @Override
+    public List<DepartmentDto> findDepartmentByIdList(Integer id) {
+        return departmentDao.findDepartmentByIdList(id);
+    }
 }

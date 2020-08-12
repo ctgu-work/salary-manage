@@ -144,7 +144,7 @@ public class PositionController {
      * @Param [positionId]
      * @return com.ctgu.salary.dto.ResultBody
      **/
-    @RequestMapping(value = "/del" , method = RequestMethod.POST )
+    @RequestMapping(value = "/del" , method = RequestMethod.GET )
     public ResultBody delOnePositionById(@RequestParam("positionId") Integer positionId){
         ResultBody resultBody = new ResultBody();
         positionService.delPositionById(positionId);
