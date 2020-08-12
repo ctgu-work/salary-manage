@@ -58,6 +58,7 @@ public class AdminController {
             }
             String token = JwtUtils.sign(username,password);
             redisUtils.set(username,token,10*60);
+            redisUtils.set(token,username,10*60);
             resultBody.setMsg("登录成功！");
             Map<String,String> map = new LinkedHashMap<>();
             map.put("Token",token);

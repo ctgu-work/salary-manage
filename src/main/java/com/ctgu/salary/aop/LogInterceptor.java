@@ -42,7 +42,7 @@ public class LogInterceptor implements HandlerInterceptor {
             throws Exception {
         StringBuffer str = request.getRequestURL();
         String url = new String(str);
-        if( WebUtils.toHttp(request).getHeader("Authorization") == null ) return true;
+        if( WebUtils.toHttp(request).getHeader("Authorization").equals("") ) return true;
         String token = WebUtils.toHttp(request).getHeader("Authorization");
         String username = (String) redisUtils.get(token);
         Admin admin = adminService.findByUsername(username);
