@@ -70,3 +70,9 @@ mybatis:
   type-aliases-package: com.ctgu.salary.po
   #mappers.xml所在位置
   mapper-locations: classpath:mappers/**/*.xml
+logging:
+  level:
+    com:
+      ctgu:
+        salary:
+          dao: debug

@@ -1,7 +1,9 @@
 package com.ctgu.salary;
 
 import com.ctgu.salary.dao.AdminDao;
+import com.ctgu.salary.dao.FormulaDao;
 import com.ctgu.salary.po.Admin;
+import com.ctgu.salary.po.Formula;
 import com.ctgu.salary.service.AdminService;
 import com.ctgu.salary.utils.Md5Salt;
 import org.junit.jupiter.api.Test;
@@ -17,11 +19,11 @@ class SalaryApplicationTests {
 
 
 	@Autowired
-	private AdminDao adminDao;
+	private FormulaDao formulaDao;
 
 	@Test
 	void contextLoads() {
-		System.out.println(Md5Salt.Md5Crypt("123321"));
+		formulaDao.selectAll(new Formula());
 	}
 
 }

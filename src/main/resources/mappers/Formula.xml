@@ -4,6 +4,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ctgu.salary.dao.FormulaDao">
 
+    <select id="selectAll" resultType="com.ctgu.salary.po.Formula">
+      select * from formula
+        <where>
+            <if test="formulaId != 0 and formulaId != null">
+                and formula_id=#{formulaId}
+            </if>
+            <if test="formulaName!=null and formulaName!='' and formulaName!='null'">
+                and formula_name=#{formulaName}
+            </if>
+        </where>
+    </select>
+    <insert id="addFormula" useGeneratedKeys="true" parameterType="com.ctgu.salary.po.Formula">
+      INSERT INTO formula(formula_name,formula_percentage) VALUES(#{formulaName}, #{formulaPercentage})
+    </insert>
 
-
+    <update id="updateFormula" parameterType="com.ctgu.salary.po.Formula">
+      UPDATE formula
+      <set>
+          <if test="formulaName != null">formula_name = #{formulaName}</if>
+          <if test="formulaPercentage != null">formula_percentage = #{formulaPercentage}</if>
+      </set>
+      WHERE where_condition
+    </update>
+    <delete id="deleteFormula" parameterType="INTEGER">
+      delete from formula where formula_id = #{formulaId}
+    </delete>
 </mapper>

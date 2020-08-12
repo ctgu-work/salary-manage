@@ -1,5 +1,9 @@
 package com.ctgu.salary.service;
 
+import com.ctgu.salary.po.Formula;
+
+import java.util.List;
+
 /**
  * @program: salary *
  * @classname: FormulaService *
@@ -8,4 +12,8 @@ package com.ctgu.salary.service;
  **/
 
 public interface FormulaService {
+    List<Formula> selectFormula(Formula formula);
+    int deleteFormula(Integer formulaId);
+    int updateFormula(Formula formula);
+    int addFormula(Formula formula);
 }
