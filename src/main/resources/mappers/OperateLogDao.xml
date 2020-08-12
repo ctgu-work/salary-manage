@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.OperateLogDao">
+
+    <resultMap id="operateLog" type="com.ctgu.salary.po.OperateLog">
+        <id column="operate_log_id" property="operateLogId" />
+        <result column="operater_id" property="operaterId" />
+        <result column="operate_date" property="operateDate" />
+        <result column="operate_msg" property="operateMsg" />
+        <result column="operater_name" property="operaterName" />
+    </resultMap>
+
+    <select id="findAllOperateLog" resultMap="operateLog">
+        select * from operate_log
+    </select>
+
+    <insert id="addOperateLog" parameterType="com.ctgu.salary.po.OperateLog" >
+		INSERT INTO position_type(operater_id,operate_date,operate_msg)
+		values(#{operaterId},NOW(),#{operateMsg})
+	</insert>
+
+</mapper>
