@@ -27,16 +27,16 @@ public class JwtUtils {
     /**
      * 验证token是否正确
      * @param token
-     * @param phoneNumber
+     * @param username
      * @param secret
      * @return
      */
-    public static boolean verify(String token, String phoneNumber, String secret) {
+    public static boolean verify(String token, String username, String secret) {
         try {
             //根据密码生成JWT效验器
             Algorithm algorithm = Algorithm.HMAC256(secret);
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withClaim("phoneNumber", phoneNumber)
+                    .withClaim("username", username)
                     .build();
             //效验TOKEN
             DecodedJWT jwt = verifier.verify(token);
@@ -71,7 +71,6 @@ public class JwtUtils {
     public static String sign(String username, String secret) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
-        // 附带phoneNumber信息
         return JWT.create()
                 .withClaim("username", username)
                 .withExpiresAt(date)
