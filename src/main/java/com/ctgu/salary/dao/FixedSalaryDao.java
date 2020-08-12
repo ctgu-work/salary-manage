@@ -2,6 +2,7 @@ package com.ctgu.salary.dao;
 
 import com.ctgu.salary.dto.FixedSalaryDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,7 @@ import java.util.List;
 @Repository
 public interface FixedSalaryDao {
     List<FixedSalaryDto> selectAllFixedSalary();
+    FixedSalaryDto selectAllFixedSalaryByDepartIdAndStaffId(@Param("depart_id") Integer departId, @Param("staff_id") Integer staffId);
+    List<FixedSalaryDto> selectAllFixedSalaryByDepartId(@Param("depart_id") Integer departId);
+    void updateByDepartId(FixedSalaryDto fixedSalaryDto);
 }

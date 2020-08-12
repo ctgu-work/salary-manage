@@ -27,7 +27,19 @@ public class FixedSalaryServiceImpl implements FixedSalaryService {
     }
 
     @Override
-    public int updateFixedSalary(FixedSalary fixedSalary) {
-        return 0;
+    public FixedSalaryDto selectAllFixedSalaryByDepartIdAndStaffId(Integer departId, Integer staffId) {
+        return fixedSalaryDao.selectAllFixedSalaryByDepartIdAndStaffId(departId,staffId);
     }
+
+    @Override
+    public List<FixedSalaryDto> selectAllFixedSalaryByDepartId(Integer departId) {
+        return fixedSalaryDao.selectAllFixedSalaryByDepartId(departId);
+    }
+
+    @Override
+    public void updateByDepartId(FixedSalaryDto fixedSalaryDto) {
+        fixedSalaryDao.updateByDepartId(fixedSalaryDto);
+    }
+
+
 }

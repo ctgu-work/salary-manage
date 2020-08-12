@@ -5,11 +5,32 @@
 <mapper namespace="com.ctgu.salary.dao.FixedSalaryDao">
 
     <select id="selectAllFixedSalary" resultType="com.ctgu.salary.dto.FixedSalaryDto">
-      select salary.fixed_salary.fixed_salary_id,salary.staff.staff_id,salary.staff.staff_name,salary.department.depart_name,
+      select salary.fixed_salary.fixed_salary_id,salary.staff.staff_id,salary.staff.staff_name,salary.department.depart_id,salary.department.depart_name,
       salary.fixed_salary.basic_salary,salary.fixed_salary.subsidy,salary.fixed_salary.remarks
       from fixed_salary,staff,department
       where department.depart_id = fixed_salary.depart_id and fixed_salary.staff_id = staff.staff_id
     </select>
 
+    <select id="selectAllFixedSalaryByDepartId" resultType="com.ctgu.salary.dto.FixedSalaryDto">
+      select salary.fixed_salary.fixed_salary_id,salary.staff.staff_id,salary.staff.staff_name,salary.department.depart_id,salary.department.depart_name,
+      salary.fixed_salary.basic_salary,salary.fixed_salary.subsidy,salary.fixed_salary.remarks
+      from fixed_salary left join department on fixed_salary.depart_id = department.depart_id left join staff on staff.staff_id = fixed_salary.fixed_salary_id
+      where #{depart_id} = fixed_salary.depart_id and fixed_salary.staff_id = staff.staff_id
+    </select>
 
+    <select id="selectAllFixedSalaryByDepartIdAndStaffId" resultType="com.ctgu.salary.dto.FixedSalaryDto">
+      select salary.fixed_salary.fixed_salary_id,salary.staff.staff_id,salary.staff.staff_name,salary.department.depart_id,salary.department.depart_name,
+      salary.fixed_salary.basic_salary,salary.fixed_salary.subsidy,salary.fixed_salary.remarks
+      from fixed_salary left join department on fixed_salary.depart_id = department.depart_id left join staff on staff.staff_id = fixed_salary.fixed_salary_id
+      where #{depart_id} = fixed_salary.depart_id and fixed_salary.staff_id = #{staff_id}
+    </select>
+    
+    <update id="updateByDepartId" parameterType="com.ctgu.salary.dto.FixedSalaryDto" >
+      UPDATE fixed_salary
+        <set>
+            <if test="basicSalary != null">basic_salary = basic_salary + #{basicSalary},</if>
+            <if test="subsidy != null">subsidy = subsidy + #{subsidy},</if>
+        </set>
+      WHERE depart_id = #{departId}
+    </update>
 </mapper>

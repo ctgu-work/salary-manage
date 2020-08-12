@@ -3,6 +3,7 @@ package com.ctgu.salary;
 import com.ctgu.salary.dao.AdminDao;
 import com.ctgu.salary.po.Admin;
 import com.ctgu.salary.service.AdminService;
+import com.ctgu.salary.utils.Md5Salt;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ class SalaryApplicationTests {
 
 	@Autowired
 	private AdminDao adminDao;
+
 	@Test
 	void contextLoads() {
-		Admin admin = new Admin(1, "lnback", "back", "123321");
-		System.out.println(adminDao.selectAdminByUsernameAndPassword(admin));
+		System.out.println(Md5Salt.Md5Crypt("123321"));
 	}
 
 }

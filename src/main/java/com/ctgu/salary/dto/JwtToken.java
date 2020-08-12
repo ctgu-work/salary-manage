@@ -1,4 +1,4 @@
-package com.ctgu.salary.config;
+package com.ctgu.salary.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

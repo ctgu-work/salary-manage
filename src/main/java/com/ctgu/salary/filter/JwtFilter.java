@@ -1,13 +1,12 @@
 package com.ctgu.salary.filter;
 
-import com.ctgu.salary.config.JwtToken;
+import com.ctgu.salary.dto.JwtToken;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.Filter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -22,50 +21,39 @@ import javax.servlet.http.HttpServletResponse;
  **/
 
 @Component
-public class JwtFilter  extends BasicHttpAuthenticationFilter implements Filter {
+public class JwtFilter  extends BasicHttpAuthenticationFilter {
 
-    /**
-     * 登录
-     * @param request
-     * @param response
-     * @param mappedValue
-     * @return
-     */
+
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        try{
-            executeLogin(request,response);
+        if(isLoginAttempt(request,response)){
+            try {
+                this.executeLogin(request,response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return true;
-        }catch (Exception e){
-            e.printStackTrace();
+        }else {
             return false;
         }
+
     }
 
-    /**
-     * 登录
-     * @param request
-     * @param response
-     * @return
-     */
     @Override
-    protected boolean executeLogin(ServletRequest request, ServletResponse response)  {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String token = httpServletRequest.getHeader("Token");
-        String url = ((ShiroHttpServletRequest) request).getRequestURL().toString();
-
-        JwtToken jwtToken = new JwtToken(token);
-
-        // 提交给realm进行登入，如果错误他会抛出异常并被捕获
-        try {
-            getSubject(request,response).login(jwtToken);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-
+    protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
+        String token = this.getAuthzHeader(request);
+        return token != null;
     }
+
+    @Override
+    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
+        JwtToken token = new JwtToken(this.getAuthzHeader(request));
+        System.out.println(getSubject(request,response).getPrincipal());
+        this.getSubject(request,response).login(token);
+
+        return true;
+    }
+
 
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {

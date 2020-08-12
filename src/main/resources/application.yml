@@ -18,11 +18,11 @@ spring:
     druid:
       filters: stat
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://101.132.71.171:3306/salary?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-#      url: jdbc:mysql://localhost:3306/salary?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+      #url: jdbc:mysql://101.132.71.171:3306/salary?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/salary?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
       username: root
-#      password: 123456
-      password: ctgu@2017WH
+      password: 123456
+ #     password: ctgu@2017WH
       initial-size: 1
       min-idle: 1
       max-active: 20

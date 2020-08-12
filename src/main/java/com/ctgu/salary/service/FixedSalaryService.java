@@ -2,6 +2,7 @@ package com.ctgu.salary.service;
 
 import com.ctgu.salary.dto.FixedSalaryDto;
 import com.ctgu.salary.po.FixedSalary;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,7 +14,10 @@ import java.util.List;
  **/
 
 public interface FixedSalaryService {
-    List<FixedSalaryDto> getAllFixedSalary();
 
-    int updateFixedSalary(FixedSalary fixedSalary);
+
+    List<FixedSalaryDto> getAllFixedSalary();
+    FixedSalaryDto selectAllFixedSalaryByDepartIdAndStaffId(Integer departId,Integer staffId);
+    List<FixedSalaryDto> selectAllFixedSalaryByDepartId(Integer departId);
+    void updateByDepartId(FixedSalaryDto fixedSalaryDto);
 }

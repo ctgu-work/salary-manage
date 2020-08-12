@@ -1,8 +1,11 @@
 package com.ctgu.salary.config;
 
+import com.auth0.jwt.JWT;
+import com.ctgu.salary.dto.JwtToken;
 import com.ctgu.salary.po.Admin;
 import com.ctgu.salary.service.AdminService;
 import com.ctgu.salary.utils.JwtUtils;
+import com.ctgu.salary.utils.RedisUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -24,6 +27,9 @@ public class AdminRealm extends AuthorizingRealm {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private RedisUtils redisUtils;
+
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -31,31 +37,31 @@ public class AdminRealm extends AuthorizingRealm {
     }
 
     @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        //获取token
+        String token = new String((char[])authenticationToken.getCredentials());
+        System.err.println(token);
+        //解密获得username
+        String username = JwtUtils.getUsername(token);
+        //如果账号为空
+        if(username == null || username.trim().equals("")){
+            throw new AuthenticationException("token中账号为空");
+        }
+        //查询用户是否存在
+        Admin admin = adminService.findByUsername(username);
+        if(admin == null){
+            throw new AuthenticationException("该账号不存在");
+        }
+        if(JwtUtils.verify(token,username,admin.getPassword()) && redisUtils.hasKey(username)){
+            return new SimpleAuthenticationInfo(token,token,this.getName());
+        }
+        throw new AuthenticationException("错误");
+    }
+
+    @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         return null;
     }
 
-    /**
-     * 验证身份
-     * @param authenticationToken
-     * @return
-     * @throws AuthenticationException
-     */
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        String token = (String) authenticationToken.getCredentials();
-        String username = JwtUtils.getUsername(token);
-        if (username == null) {
-            throw new AuthenticationException("token无效");
-        }
-        Admin admin = adminService.findByUsername(username);
-        if (admin == null) {
-            throw new AuthenticationException("用户不存在!");
-        }
-        if (!JwtUtils.verify(token, username, admin.getPassword())) {
-            throw new AuthenticationException("用户名或密码错误");
-        }
 
-        return new SimpleAuthenticationInfo(token,token,this.getName());
-    }
 }

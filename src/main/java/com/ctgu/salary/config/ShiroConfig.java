@@ -7,6 +7,8 @@ import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -46,33 +48,33 @@ public class ShiroConfig {
     }
 
 
-    @Bean("shiroFilter")
+    @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+
+        // 添加自己的过滤器并且取名为jwt
+        Map<String, Filter> filterMap = new HashMap<String, Filter>();
+        filterMap.put("jwt",new JwtFilter());
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        shiroFilterFactoryBean.setFilters(filterMap);
         //拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/admin/login/**", "anon");
-        // 添加自己的过滤器并且取名为jwt
-        Map<String, Filter> filterMap = new HashMap<String, Filter>(1);
-        filterMap.put("jwt", new JwtFilter());
-        shiroFilterFactoryBean.setFilters(filterMap);
-        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
-        filterChainDefinitionMap.put("/**", "jwt");
 
-        //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        // 配置不会被拦截的链接 顺序判断
+//        filterChainDefinitionMap.put("/admin/test", "anon");
+        filterChainDefinitionMap.put("/admin/login", "anon");
+        filterChainDefinitionMap.put("/**", "anon");
+        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
+//        filterChainDefinitionMap.put("/**", "jwt");
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
     @Bean("securityManager")
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager(AdminRealm adminRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        List<Realm> realms = new ArrayList<>();
-        realms.add(adminRealm());
-        securityManager.setRealms(realms);
+        securityManager.setRealm(adminRealm);
         securityManager.setRememberMeManager(cookieRememberMeManager());
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
         DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
@@ -82,11 +84,21 @@ public class ShiroConfig {
         return securityManager;
     }
 
+
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
+    }
     @Bean("adminRealm")
     public AdminRealm adminRealm() {
         return new AdminRealm();
     }
-
-
 
 }

@@ -17,6 +17,7 @@ public class FixedSalaryDto {
     private Integer fixedSalaryId;
     private Integer staffId;
     private String staffName;
+    private Integer departId;
     private String departName;
     private Double basicSalary;
     private Double subsidy;
