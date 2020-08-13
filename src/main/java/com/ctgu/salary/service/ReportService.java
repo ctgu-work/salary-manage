@@ -1,5 +1,10 @@
 package com.ctgu.salary.service;
 
+import com.ctgu.salary.dto.ReportDto;
+import com.ctgu.salary.dto.WageDto;
+
+import java.util.List;
+
 /**
  * @Description TODO
  * @Author wh_lan
@@ -8,4 +13,6 @@ package com.ctgu.salary.service;
  * @Version 1.0.0
  */
 public interface ReportService {
+    List<WageDto> findAllReportWage();
+    List<ReportDto> findAllFormulaCal();
 }

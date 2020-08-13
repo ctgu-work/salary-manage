@@ -88,7 +88,7 @@
 		delete from staff where staff_id = #{staffId}
 	</delete>
 
-    <select id="findStaffByIdCard" parameterType="String" resultType="com.ctgu.salary.dto.StaffDto">
+    <select id="findStaffByIdCard" parameterType="String" resultMap="staffs">
         SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
         staff.position_id = position.position_id and staff.id_card = #{idCard}
     </select>

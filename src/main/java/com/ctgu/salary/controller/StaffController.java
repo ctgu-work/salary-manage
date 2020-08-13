@@ -220,12 +220,17 @@ public class StaffController {
      * @return com.ctgu.salary.dto.ResultBody
      **/
     @GetMapping("/find-idCard")
-    public ResultBody findByIdCard(@RequestParam("idCard")String idCard){
+    public ResultBody findByIdCard(@RequestParam("idCard")String idCard,
+                                   @RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
+                                   @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
+
         ResultBody resultBody = new ResultBody();
-        StaffDto staff = staffService.findStaffByIdCard(idCard);
+        List<StaffDto> staffs = staffService.findStaffByIdCard(idCard);
+        PageHelper.startPage(startPage, pageSize);
+        PageInfo<StaffDto> staffDtoPageInfo = new PageInfo<>(staffs);
         resultBody.setMsg("success");
         resultBody.setStatusCode("200");
-        resultBody.setResult(staff);
+        resultBody.setResult(staffDtoPageInfo);
         return resultBody;
     }
 

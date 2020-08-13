@@ -4,30 +4,54 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ctgu.salary.dao.ReportDao">
 
-<!--    <resultMap id="positionType" type="com.ctgu.salary.po.PositionType">-->
-<!--        <id column="position_type_id" property="positionTypeId" />-->
-<!--        <result column="type" property="type" />-->
-<!--    </resultMap>-->
-<!--    <select id="findAllPositionType" resultMap="positionType">-->
-<!--        select * from position_type-->
-<!--    </select>-->
+    <resultMap id="reportWage" type="com.ctgu.salary.dto.WageDto">
+        <result column="wage_id" property="wageId" />
+        <result column="overday" property="overday" />
+        <result column="overMoney" property="overMoney" />
+        <result column="lateday" property="lateday" />
+        <result column="lateMoney" property="lateMoney" />
+        <result column="reissue" property="reissue" />
+        <result column="affairday" property="affairday" />
+        <result column="affairMoney" property="affairMoney" />
+        <result column="subsidy" property="subsidy" />
+        <result column="basic_salary" property="basicSalary" />
+        <result column="sickday" property="sickday" />
+        <result column="sickMoney" property="sickMoney" />
+        <result column="staff_id" property="staffId" />
+        <result column="depart_id" property="departId" />
+        <result column="status" property="status" />
+        <result column="total_salary" property="totalSalary" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_time" property="createTime" />
+        <result column="staff_name" property="staffName" />
+        <result column="depart_name" property="departName" />
+        <result column="calc_salary_id" property="calcSalaryId" />
+    </resultMap>
+    <select id="findAllReportWage" resultMap="reportWage">
+        SELECT DISTINCT a.depart_id,a.depart_name,b.staff_id,b.staff_name ,c.basic_salary, c.subsidy ,d.sickday * 20 as sickMoney,
+        d.sickday,d.affairday * 50 as affairMoney,d.affairday,d.lateday * 10 as lateMoney , d.lateday,d.overday * 100 as overMoney,
+        d.overday,d.reissue,e.total_salary,e.wage_id,e.`status`,e.update_time,e.create_time,g.calc_salary_id
+        from department as a , staff as b , fixed_salary as c ,reward_punish as d ,wage as e,
+        calc_item as f , calc_salary as g , calc_salary_item as h
+        where a.depart_id = b.department_id and c.staff_id = b.staff_id and d.staff_id = b.staff_id
+        and e.staff_id = b.staff_id and
+        h.calc_salary_id = g.calc_salary_id and g.staff_id = b.staff_id and e.reward_punish_id = d.reward_punish_id
+        and h.calc_salary_id = g.calc_salary_id;
+    </select>
 
-<!--    <delete id="delPositionTypeById" parameterType="INTEGER">-->
-<!--		delete from position_type where position_type_id = #{id}-->
-<!--	</delete>-->
 
-<!--    <insert id="addPositionType" parameterType="String" >-->
-<!--		INSERT INTO position_type(type) values(#{type})-->
-<!--	</insert>-->
+    <resultMap id="formulaCal" type="com.ctgu.salary.dto.ReportDto">
+        <result column="calc_item_id" property="calcItemId" />
+        <result column="calc_item_name" property="calcItemName" />
+        <result column="formula_id" property="formulaId" />
+        <result column="formula_percentage" property="formulaPercentage" />
+        <result column="formula_name" property="formulaName" />
+        <result column="calc_salary_id" property="calcSalaryId" />
+    </resultMap>
+    <select id="findAllFormulaCal" resultMap="formulaCal">
+        SELECT calc_item.calc_item_name,calc_item.calc_item_id, formula.*,calc_salary_item.calc_salary_id
+        FROM calc_item,formula,calc_salary_item WHERE formula.formula_id = calc_item.formula_id
+        and calc_salary_item.calc_item_id = calc_item.calc_item_id ORDER BY calc_salary_item.calc_salary_id
+    </select>
 
-<!--    <update id="updatePositionType">-->
-<!--        UPDATE position_type-->
-<!--        <set>-->
-<!--            <if test="type != null">type=#{type},</if>-->
-<!--        </set>-->
-<!--        where position_type_id =#{positionTypeId}-->
-<!--    </update>-->
-<!--    <select id="findOnePositionType" parameterType="String" resultMap="positionType">-->
-<!--        select * from position_type where position_type.type=#{type}-->
-<!--    </select>-->
 </mapper>
