@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.CalcSalaryDtoDao">
+
+    <select id="selectByStaffNameAndCalcItemName" resultType="com.ctgu.salary.dto.CalcSalaryDto">
+        SELECT
+        calc_salary.calc_salary_id,
+        staff.staff_name,
+        staff.staff_id ,
+        calc_item.calc_item_id,
+        calc_item.calc_item_name,
+        formula.formula_id ,
+        formula.formula_name,
+        formula.formula_percentage
+        FROM
+        calc_salary inner join staff on staff.staff_id = calc_salary.staff_id
+        inner join calc_salary_item on calc_salary.calc_salary_id = calc_salary_item.calc_salary_id
+        INNER join calc_item on calc_salary_item.calc_item_id = calc_item.calc_item_id
+        inner join formula on calc_item.formula_id = formula.formula_id
+        WHERE
+        calc_item.formula_id = formula.formula_id and calc_salary.staff_id in (select staff_id from staff where staff_name = #{staffName})
+        AND calc_item.calc_item_id = (select calc_item.calc_item_id from calc_item where calc_item_name = #{calcItemName})
+        and calc_item.calc_item_id In (select calc_salary_item.calc_item_id from  calc_salary , calc_salary_item where calc_salary_item.calc_salary_id = calc_salary.calc_salary_id)
+    </select>
+    
+    <select id="selectByStaffName" resultType="com.ctgu.salary.dto.CalcSalaryDto">
+        SELECT
+        calc_salary.calc_salary_id,
+        staff.staff_name,
+        staff.staff_id ,
+        calc_item.calc_item_id,
+        calc_item.calc_item_name,
+        formula.formula_id ,
+        formula.formula_name,
+        formula.formula_percentage
+        FROM
+        calc_salary inner join staff on staff.staff_id = calc_salary.staff_id
+        inner join calc_salary_item on calc_salary.calc_salary_id = calc_salary_item.calc_salary_id
+        INNER join calc_item on calc_salary_item.calc_item_id = calc_item.calc_item_id
+        inner join formula on calc_item.formula_id = formula.formula_id
+        WHERE
+        calc_item.formula_id = formula.formula_id and calc_salary.staff_id in (select staff_id from staff where staff_name = #{staffName})
+        and calc_item.calc_item_id In (select calc_salary_item.calc_item_id from  calc_salary , calc_salary_item where calc_salary_item.calc_salary_id = calc_salary.calc_salary_id)
+    </select>
+
+    <select id="selectByCalcItemName" resultType="com.ctgu.salary.dto.CalcSalaryDto">
+        SELECT
+        calc_salary.calc_salary_id,
+        staff.staff_name,
+        staff.staff_id ,
+        calc_item.calc_item_id,
+        calc_item.calc_item_name,
+        formula.formula_id ,
+        formula.formula_name,
+        formula.formula_percentage
+        FROM
+        calc_salary inner join staff on staff.staff_id = calc_salary.staff_id
+        inner join calc_salary_item on calc_salary.calc_salary_id = calc_salary_item.calc_salary_id
+        INNER join calc_item on calc_salary_item.calc_item_id = calc_item.calc_item_id
+        inner join formula on calc_item.formula_id = formula.formula_id
+        WHERE
+        calc_item.formula_id = formula.formula_id and calc_salary.staff_id = calc_salary.staff_id
+        AND calc_item.calc_item_id = (select calc_item.calc_item_id from calc_item where calc_item_name = #{calcItemName})
+        and calc_item.calc_item_id In (select calc_salary_item.calc_item_id from  calc_salary , calc_salary_item where calc_salary_item.calc_salary_id = calc_salary.calc_salary_id)
+    </select>
+    <select id="selectAll" resultType="com.ctgu.salary.dto.CalcSalaryDto">
+        SELECT
+        calc_salary.calc_salary_id,
+        staff.staff_name,
+        staff.staff_id ,
+        calc_item.calc_item_id,
+        calc_item.calc_item_name,
+        formula.formula_id ,
+        formula.formula_name,
+        formula.formula_percentage
+        FROM
+        calc_salary inner join staff on staff.staff_id = calc_salary.staff_id
+        inner join calc_salary_item on calc_salary.calc_salary_id = calc_salary_item.calc_salary_id
+        INNER join calc_item on calc_salary_item.calc_item_id = calc_item.calc_item_id
+        inner join formula on calc_item.formula_id = formula.formula_id
+        WHERE
+        calc_item.formula_id = formula.formula_id and calc_salary.staff_id = calc_salary.staff_id
+        and calc_item.calc_item_id In (select calc_salary_item.calc_item_id from  calc_salary , calc_salary_item where calc_salary_item.calc_salary_id = calc_salary.calc_salary_id)
+    </select>
+
+
+    <insert id="" useGeneratedKeys="true" parameterType="list">
+        INSERT INTO ()
+        VALUE();
+    </insert>
+
+
+
+
+    <delete id="deleteCalcSalary" parameterType="INTEGER">
+      delete from calc_salary_item where calc_salary_item.calc_salary_id = #{calcSalaryId}
+    </delete>
+</mapper>
