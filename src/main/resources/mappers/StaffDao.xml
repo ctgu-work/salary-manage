@@ -93,7 +93,10 @@
         SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
         staff.position_id = position.position_id and staff.id_card = #{idCard}
     </select>
-
+    <select id="findOneStaffByIdCard" parameterType="String" resultType="com.ctgu.salary.dto.StaffDto">
+        SELECT staff.*,department.depart_name,position.position_name FROM staff,department,position where staff.department_id = department.depart_id and
+        staff.position_id = position.position_id and staff.id_card = #{idCard}
+    </select>
     <insert id="addStaff"
             parameterType="com.ctgu.salary.po.Staff"
             useGeneratedKeys="true" keyProperty="staffId">

@@ -164,7 +164,7 @@ public class StaffController {
     @PostMapping("/add")
     public ResultBody addOneStaff(@RequestBody(required = false) Staff staff){
         ResultBody resultBody = new ResultBody();
-        if( staffService.findStaffByIdCard(staff.getIdCard()) == null ){
+        if( staffService.findOneStaffByIdCard(staff.getIdCard()) == null ){
             staffService.addStaff(staff);
             resultBody.setMsg("success");
             resultBody.setStatusCode("200");

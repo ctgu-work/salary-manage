@@ -52,6 +52,11 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public StaffDto findOneStaffByIdCard(String idCard) {
+        return staffDao.findOneStaffByIdCard(idCard);
+    }
+
+    @Override
     public int addStaff(Staff staff) {
         return staffDao.addStaff(staff);
     }

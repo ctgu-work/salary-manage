@@ -19,5 +19,6 @@ public interface StaffService {
     int delStaffById(Integer staffId);
     int updateStaff(Staff staff);
     List<StaffDto> findStaffByIdCard(String idCard);
+    StaffDto findOneStaffByIdCard(String idCard);
     int addStaff(Staff staff);
 }
