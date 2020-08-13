@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.IndexDao">
+
+    <select id="getStaffNum" resultType="INTEGER">
+        SELECT count(*) FROM staff
+    </select>
+    <select id="getDepartNum" resultType="INTEGER">
+        SELECT count(*) FROM department
+    </select>
+    <select id="getPositionNum" resultType="INTEGER">
+        SELECT count(*) FROM `position`
+    </select>
+
+    <select id="departLateDay" resultType="java.util.Map">
+        SELECT sum(lateday) as lateDay,depart_name FROM reward_punish left join department on reward_punish.depart_id = department.depart_id
+        GROUP BY reward_punish.depart_id
+    </select>
+
+</mapper>

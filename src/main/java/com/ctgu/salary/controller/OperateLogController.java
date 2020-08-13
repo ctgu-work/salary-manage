@@ -30,6 +30,14 @@ public class OperateLogController {
         this.operateLogService = operateLogService;
     }
 
+
+    /**
+     * @Author wh
+     * @Description 所有日志
+     * @Date 2020/8/13 19:43
+     * @Param [startPage, pageSize]
+     * @return com.ctgu.salary.dto.ResultBody
+     **/
     @RequestMapping("/list")
     public ResultBody getAll(@RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){

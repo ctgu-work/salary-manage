@@ -147,7 +147,7 @@ public class StaffController {
             }
         }
         else{
-            resultBody.setMsg("上传失败");
+            resultBody.setMsg("接收文件失败");
             resultBody.setStatusCode("500");
         }
         return resultBody;
