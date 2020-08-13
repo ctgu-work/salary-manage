@@ -85,20 +85,12 @@ public class OssUtil {
      * @return java.lang.String
      **/
     public static String upLoadFile(String fileName, MultipartFile multipartFile) {
-        ResultBody resultBody = new ResultBody();
         getPro();
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId,accessKeySecret);
         // 上传内容到指定的存储空间（bucketName）并保存为指定的文件名称（objectName）。
         String objectName = oss_filedir + Md5SaltCrypt(fileName) + getFileExtension(multipartFile);
-//        File file = new File(path);
-        File file = null;
         try {
-            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PutObjectResult putObjectResult = ossClient.putObject(bucketName, objectName, file);
+            PutObjectResult putObjectResult = ossClient.putObject(bucketName, objectName, multipartFile.getInputStream());
             System.out.println(putObjectResult);
             ossClient.shutdown();
             return oss_static_url + objectName;

@@ -121,21 +121,22 @@ public class StaffController {
      * @return com.ctgu.salary.dto.ResultBody
      **/
     @PostMapping("/avatar")
-    public ResultBody updateStaffAvatar(@RequestParam(value = "avatar",required = false) MultipartFile multipartFile){
+    public ResultBody updateStaffAvatar(@RequestParam(value = "avatar",required = false) MultipartFile avatar,
+                                        @RequestParam("staffId") Integer staffId ){
         ResultBody resultBody = new ResultBody();
-        if( multipartFile != null ){
-            String avatarName = multipartFile.getName();
-            String extension = OssUtil.getFileExtension(multipartFile);
+        if( avatar != null ){
+            String avatarName = avatar.getName();
+            String extension = OssUtil.getFileExtension(avatar);
             //判断是否是图片
             if( extension.equalsIgnoreCase(".jpg") || extension.equalsIgnoreCase(".png")
                     || extension.equalsIgnoreCase(".jpeg")){
-                String avatarUrl = OssUtil.upLoadFile(avatarName,multipartFile);
+                String avatarUrl = OssUtil.upLoadFile(avatarName,avatar);
                 if( avatarUrl.equals("error") ) {
                     resultBody.setMsg("上传失败");
                     resultBody.setStatusCode("500");
                 }
                 else {
-                    staffService.updateStaffAvatar(avatarUrl);
+//                    staffService.updateStaffAvatar(avatarUrl);
                     resultBody.setResult(avatarUrl);
                     resultBody.setMsg("success");
                     resultBody.setStatusCode("200");
