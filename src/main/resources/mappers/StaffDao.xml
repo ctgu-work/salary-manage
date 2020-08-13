@@ -77,12 +77,13 @@
         where staff_id =#{staffId}
     </update>
 
-    <update id="updateStaffAvatar">
-        UPDATE staff
-        <set>
-            <if test="avatar != null">avatar=#{avatar},</if>
-        </set>
-    </update>
+<!--    <update id="updateStaffAvatar">-->
+<!--        UPDATE staff-->
+<!--        <set>-->
+<!--            <if test="avatar != null">avatar=#{avatar},</if>-->
+<!--        </set>-->
+<!--    where-->
+<!--    </update>-->
 
     <delete id="delStaffById" parameterType="INTEGER">
 		delete from staff where staff_id = #{staffId}
