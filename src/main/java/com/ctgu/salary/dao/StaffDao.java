@@ -20,6 +20,6 @@ public interface StaffDao {
     int updateStaffAvatar(String avatar);
     int delStaffById(Integer staffId);
     int updateStaff(Staff staff);
-    StaffDto findStaffByIdCard(String idCard);
+    List<StaffDto> findStaffByIdCard(String idCard);
     int addStaff(Staff staff);
 }
