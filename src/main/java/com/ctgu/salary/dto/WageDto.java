@@ -1,5 +1,6 @@
 package com.ctgu.salary.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,5 +46,4 @@ public class WageDto {
     private Integer rpMoney;
     List<ReportDto> formulaCal;
 }
-
 
