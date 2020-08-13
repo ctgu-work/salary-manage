@@ -3,10 +3,12 @@ package com.ctgu.salary;
 import com.ctgu.salary.dao.AdminDao;
 import com.ctgu.salary.dao.FormulaDao;
 import com.ctgu.salary.dao.RewardPunishDao;
+import com.ctgu.salary.dao.SalaryDtoDao;
 import com.ctgu.salary.po.Admin;
 import com.ctgu.salary.po.Formula;
 import com.ctgu.salary.po.RewardPunish;
 import com.ctgu.salary.service.AdminService;
+import com.ctgu.salary.service.SalaryDtoService;
 import com.ctgu.salary.utils.Md5Salt;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +25,14 @@ class SalaryApplicationTests {
 
 
 	@Autowired
-	private RewardPunishDao rewardPunishDao;
+	private SalaryDtoDao rewardPunishDao;
+
+	@Autowired
+	private SalaryDtoService salaryDtoService;
 
 	@Test
 	void contextLoads() {
-		RewardPunish rewardPunish = new RewardPunish();
-		rewardPunish.setDepartId(1);
-		System.out.println(rewardPunishDao.selectAll(rewardPunish));
+		System.out.println(salaryDtoService.getSalaryList(2));
 	}
 
 }
