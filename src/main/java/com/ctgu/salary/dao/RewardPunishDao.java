@@ -1,5 +1,6 @@
 package com.ctgu.salary.dao;
 
+import com.ctgu.salary.dto.RewardPunishDto;
 import com.ctgu.salary.po.Formula;
 import com.ctgu.salary.po.RewardPunish;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +21,5 @@ public interface RewardPunishDao {
     int deleteRewardPunish(@Param("rewardPunishId") Integer rewardPunishId);
     int updateRewardPunish(RewardPunish rewardPunish);
     void addRewardPunish(@Param("list") List<RewardPunish> list);
-    List<RewardPunish> selectAll(RewardPunish rewardPunish);
+    List<RewardPunishDto> selectAll(RewardPunish rewardPunish);
 }

@@ -1,6 +1,7 @@
 package com.ctgu.salary.service.Impl;
 
 import com.ctgu.salary.dao.RewardPunishDao;
+import com.ctgu.salary.dto.RewardPunishDto;
 import com.ctgu.salary.po.RewardPunish;
 import com.ctgu.salary.service.RewardPunishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class RewardPunishServiceImpl implements RewardPunishService {
     }
 
     @Override
-    public List<RewardPunish> selectAll(RewardPunish rewardPunish) {
+    public List<RewardPunishDto> selectAll(RewardPunish rewardPunish) {
         return rewardPunishDao.selectAll(rewardPunish);
     }
 }

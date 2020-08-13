@@ -1,5 +1,6 @@
 package com.ctgu.salary.service;
 
+import com.ctgu.salary.dto.RewardPunishDto;
 import com.ctgu.salary.po.RewardPunish;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface RewardPunishService {
     int deleteRewardPunish(Integer rewardPunishId);
     int updateRewardPunish(RewardPunish rewardPunish);
     void addRewardPunish(List<RewardPunish> list);
-    List<RewardPunish> selectAll(RewardPunish rewardPunish);
+    List<RewardPunishDto> selectAll(RewardPunish rewardPunish);
 }

@@ -1,6 +1,7 @@
 package com.ctgu.salary.controller;
 
 import com.ctgu.salary.dto.ResultBody;
+import com.ctgu.salary.dto.RewardPunishDto;
 import com.ctgu.salary.po.RewardPunish;
 import com.ctgu.salary.service.RewardPunishService;
 import com.github.pagehelper.PageHelper;
@@ -39,8 +40,8 @@ public class RewardPunishController {
             resultBody.setStatusCode("200");
         System.out.println(rewardPunish);
         PageHelper.startPage(startPage,pageSize);
-        List<RewardPunish> list = rewardPunishService.selectAll(rewardPunish);
-        PageInfo<RewardPunish> pageInfo = new  PageInfo<>(list);
+        List<RewardPunishDto> list = rewardPunishService.selectAll(rewardPunish);
+        PageInfo<RewardPunishDto> pageInfo = new  PageInfo<>(list);
         resultBody.setMsg("success");
         resultBody.setResult(pageInfo);
         return resultBody;

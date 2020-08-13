@@ -4,8 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ctgu.salary.dao.RewardPunishDao">
 
-    <select id="selectAll" resultType="com.ctgu.salary.po.RewardPunish">
-        select * from reward_punish
+    <select id="selectAll" resultType="com.ctgu.salary.dto.RewardPunishDto">
+        select staff.staff_name , department.depart_name,reward_punish.* from reward_punish left join staff on reward_punish.staff_id = staff.staff_id left join
+        department on reward_punish.depart_id = department.depart_id
         <where>
             <if test="rewardPunishId != 0 and rewardPunishId != null">
                 and reward_punish.reward_punish_id=#{rewardPunishId}
