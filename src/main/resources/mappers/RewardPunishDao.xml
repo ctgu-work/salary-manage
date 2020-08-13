@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.RewardPunishDao">
+
+    <select id="selectAll" resultType="com.ctgu.salary.dto.RewardPunishDto">
+        select staff.staff_name , department.depart_name,reward_punish.* from reward_punish left join staff on reward_punish.staff_id = staff.staff_id left join
+        department on reward_punish.depart_id = department.depart_id
+        <where>
+            <if test="rewardPunishId != 0 and rewardPunishId != null">
+                and reward_punish.reward_punish_id=#{rewardPunishId}
+            </if>
+            <if test="staffId != null and staffId != 0">
+                and reward_punish.staff_id=#{staffId}
+            </if>
+            <if test="departId != 0 and departId != null">
+                and reward_punish.depart_id = #{departId}
+            </if>
+            <if test="startTime != null">
+                AND reward_punish.start_time <![CDATA[>=]]> #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND reward_punish.end_time <![CDATA[<=]]>#{endTime}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addRewardPunish" useGeneratedKeys="true" parameterType="list">
+        INSERT INTO reward_punish(staff_id,reissue,overday,lateday,sickday,affairday,start_time,end_time,depart_id)
+        VALUES
+        <foreach collection="list" item="rewardPunish" separator=",">
+            (#{rewardPunish.staffId},#{rewardPunish.reissue},#{rewardPunish.overday},#{rewardPunish.lateday}
+            ,#{rewardPunish.sickday},#{rewardPunish.affairday},current_timestamp,current_timestamp,#{rewardPunish.departId}
+            )
+        </foreach>
+    </insert>
+    <update id="updateRewardPunish" parameterType="com.ctgu.salary.po.RewardPunish">
+        UPDATE reward_punish
+        <set>
+            <if test="overday != null">overday = overday + #{overday},</if>
+            <if test="lateday != null">lateday = lateday + #{lateday},</if>
+            <if test="sickday != null">sickday = sickday + #{sickday},</if>
+            <if test="affairday != null">affairday = affairday + #{affairday},</if>
+            <if test="reissue != null">reissue=#{reissue}</if>
+        </set>
+        WHERE reward_punish_id = #{RewardPunishId}
+    </update>
+
+
+
+    <delete id="deleteRewardPunish" parameterType="INTEGER">
+      delete from reward_punish where reward_punish_id_id = #{rewardPunishId}
+    </delete>
+</mapper>

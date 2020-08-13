@@ -31,7 +31,9 @@ public class FormulaController {
                                  @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
         ResultBody resultBody = new ResultBody();
         resultBody.setStatusCode("200");
-
+        if (formulaName.equals("null") || formulaName == "null"){
+            formulaName = null;
+        }
         Formula formula = new Formula();
         //两个参数都为空表示查询全部
         if(formulaId == 0 && formulaName == null){
@@ -40,13 +42,14 @@ public class FormulaController {
             PageInfo<Formula> pageInfo = new PageInfo<>(list);
             resultBody.setResult(pageInfo);
         }else {
-
+            PageHelper.startPage(startPage,pageSize);
             formula.setFormulaName(formulaName);
             formula.setFormulaId(formulaId);
             List<Formula> list = formulaService.selectFormula(formula);
+            PageInfo<Formula> pageInfo = new PageInfo<>(list);
             resultBody.setResult(list);
         }
-        resultBody.setMsg("成功查询！");
+        resultBody.setMsg("success");
         return resultBody;
     }
 
@@ -56,12 +59,12 @@ public class FormulaController {
         resultBody.setStatusCode("200");
 
         if(formulaId == null){
-            resultBody.setMsg("删除失败，未选定删除项！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }else {
             formulaService.deleteFormula(formulaId);
             resultBody.setResult(null);
-            resultBody.setMsg("删除成功！");
+            resultBody.setMsg("success");
         }
         return resultBody;
     }
@@ -72,11 +75,11 @@ public class FormulaController {
         resultBody.setStatusCode("200");
 
         if(formula == null){
-            resultBody.setMsg("修改失败，没有提交任何数据！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }else {
             formulaService.updateFormula(formula);
-            resultBody.setMsg("修改成功！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }
         return resultBody;
@@ -88,11 +91,11 @@ public class FormulaController {
         resultBody.setStatusCode("200");
 
         if(formula == null){
-            resultBody.setMsg("添加失败，没有提交任何数据！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }else {
             formulaService.addFormula(formula);
-            resultBody.setMsg("添加成功！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }
         return resultBody;

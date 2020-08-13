@@ -48,7 +48,7 @@ public class AdminController {
         if(admin == null){
             resultBody.setResult(null);
             //该用户不存在
-            resultBody.setMsg("该用户不存在");
+            resultBody.setMsg("success");
             return resultBody;
         }
         String key = Md5Salt.Md5Crypt(password);
@@ -59,14 +59,14 @@ public class AdminController {
             String token = JwtUtils.sign(username,password);
             redisUtils.set(username,token,10*60);
             redisUtils.set(token,username,10*60);
-            resultBody.setMsg("登录成功！");
+            resultBody.setMsg("success");
             Map<String,String> map = new LinkedHashMap<>();
             map.put("Token",token);
             map.put("username",username);
             resultBody.setResult(map);
         }else {
             resultBody.setResult(null);
-            resultBody.setMsg("账号或密码错误！");
+            resultBody.setMsg("success");
         }
         return resultBody;
     }
@@ -84,11 +84,11 @@ public class AdminController {
             redisUtils.del(username);
             resultBody.setResult(null);
             resultBody.setStatusCode("200");
-            resultBody.setMsg("退出成功！");
+            resultBody.setMsg("success");
         }else {
             resultBody.setResult(null);
             resultBody.setStatusCode("500");
-            resultBody.setMsg("退出失败，当前没有用户登录！");
+            resultBody.setMsg("success");
         }
         return resultBody;
     }

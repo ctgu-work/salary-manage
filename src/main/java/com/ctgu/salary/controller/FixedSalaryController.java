@@ -43,7 +43,7 @@ public class FixedSalaryController {
         list = fixedSalaryService.getAllFixedSalary();
         PageInfo<FixedSalaryDto> listOnePage = new PageInfo<>(list);
         ResultBody resultBody = new ResultBody();
-        resultBody.setMsg("查询成功！");
+        resultBody.setMsg("success！");
         resultBody.setStatusCode("200");
         resultBody.setResult(listOnePage);
         return resultBody;
@@ -65,7 +65,7 @@ public class FixedSalaryController {
 
         fixedSalaryService.updateByDepartId(fixedSalaryDto);
 
-        resultBody.setMsg("修改成功！");
+        resultBody.setMsg("success！");
         resultBody.setResult(null);
         return resultBody;
 
@@ -82,7 +82,7 @@ public class FixedSalaryController {
         list =  fixedSalaryService.selectAllFixedSalaryByDepartId(departId);
         PageInfo<FixedSalaryDto> page = new PageInfo<>(list);
         ResultBody resultBody = new ResultBody();
-        resultBody.setMsg("查询成功");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         resultBody.setResult(page);
 
@@ -100,14 +100,14 @@ public class FixedSalaryController {
         list.add(fixedSalaryDto);
         ResultBody resultBody = new ResultBody();
         resultBody.setResult(list);
-        resultBody.setMsg("查询成功");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
 
         return resultBody;
     }
 
     @GetMapping("/getByDepartIdAndSection")
-    public ResultBody getByDepartIdAndSection(@RequestParam("depardId") Integer departId,
+    public ResultBody getByDepartIdAndSection(@RequestParam("departId") Integer departId,
                                               @RequestParam(value = "left",required = true) Integer left,
                                               @RequestParam(value = "right",required = true) Integer right,
                                               @RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,
@@ -119,7 +119,7 @@ public class FixedSalaryController {
         list = fixedSalaryService.selectFixedSalaryByDepartIdAndSection(departId,left,right);
         PageInfo<FixedSalaryDto> pegeInfo = new PageInfo<>(list);
         resultBody.setResult(pegeInfo);
-        resultBody.setMsg("查询成功");
+        resultBody.setMsg("success");
         resultBody.setStatusCode("200");
         return resultBody;
     }
