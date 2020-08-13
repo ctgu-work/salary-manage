@@ -42,17 +42,24 @@ public class LogInterceptor implements HandlerInterceptor {
             throws Exception {
         StringBuffer str = request.getRequestURL();
         String url = new String(str);
-        if( WebUtils.toHttp(request).getHeader("Authorization").equals("") ) return true;
-        String token = WebUtils.toHttp(request).getHeader("Authorization");
-        if( redisUtils.get(token) == null ) return true;
-        String username = (String) redisUtils.get(token);
-        Admin admin = adminService.findByUsername(username);
-        OperateLog operateLog = new OperateLog();
-        operateLog.setOperaterId(admin.getAdminId());
-        operateLog.setOperaterName(username);
-        operateLog.setOperateMsg(url);
-        operateLogService.addOperateLog(operateLog);
-        return true;
+        try{
+            if( WebUtils.toHttp(request).getHeader("Authorization") == null ) return true;
+            if( WebUtils.toHttp(request).getHeader("Authorization").equals("") ) return true;
+            String token = WebUtils.toHttp(request).getHeader("Authorization");
+            if( redisUtils.get(token) == null ) return true;
+            String username = (String) redisUtils.get(token);
+            if( adminService.findByUsername(username) == null ) return true;
+            Admin admin = adminService.findByUsername(username);
+            OperateLog operateLog = new OperateLog();
+            operateLog.setOperaterId(admin.getAdminId());
+            operateLog.setOperaterName(username);
+            operateLog.setOperateMsg(url);
+            operateLogService.addOperateLog(operateLog);
+            return true;
+        }
+        catch (Exception e){
+            return true;
+        }
     }
 
     @Override
