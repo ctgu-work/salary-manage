@@ -121,8 +121,7 @@ public class StaffController {
      * @return com.ctgu.salary.dto.ResultBody
      **/
     @PostMapping("/avatar")
-    public ResultBody updateStaffAvatar(@RequestParam(value = "avatar",required = false) MultipartFile avatar,
-                                        @RequestParam("staffId") Integer staffId ){
+    public ResultBody updateStaffAvatar(@RequestParam(value = "avatar",required = false) MultipartFile avatar){
         ResultBody resultBody = new ResultBody();
         if( avatar != null ){
             String avatarName = avatar.getName();
