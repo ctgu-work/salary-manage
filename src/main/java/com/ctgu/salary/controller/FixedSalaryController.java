@@ -107,7 +107,7 @@ public class FixedSalaryController {
     }
 
     @GetMapping("/getByDepartIdAndSection")
-    public ResultBody getByDepartIdAndSection(@RequestParam("depardId") Integer departId,
+    public ResultBody getByDepartIdAndSection(@RequestParam("departId") Integer departId,
                                               @RequestParam(value = "left",required = true) Integer left,
                                               @RequestParam(value = "right",required = true) Integer right,
                                               @RequestParam(value = "startPage", required = false, defaultValue = "1") Integer startPage,

@@ -59,12 +59,12 @@ public class FormulaController {
         resultBody.setStatusCode("200");
 
         if(formulaId == null){
-            resultBody.setMsg("删除失败，未选定删除项！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }else {
             formulaService.deleteFormula(formulaId);
             resultBody.setResult(null);
-            resultBody.setMsg("success！");
+            resultBody.setMsg("success");
         }
         return resultBody;
     }
@@ -75,7 +75,7 @@ public class FormulaController {
         resultBody.setStatusCode("200");
 
         if(formula == null){
-            resultBody.setMsg("修改失败，没有提交任何数据！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }else {
             formulaService.updateFormula(formula);
@@ -91,7 +91,7 @@ public class FormulaController {
         resultBody.setStatusCode("200");
 
         if(formula == null){
-            resultBody.setMsg("添加失败，没有提交任何数据！");
+            resultBody.setMsg("success");
             resultBody.setResult(null);
         }else {
             formulaService.addFormula(formula);
