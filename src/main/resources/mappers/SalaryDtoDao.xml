@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.salary.dao.SalaryDtoDao">
+
+    <select id="selectAll" resultType="com.ctgu.salary.dto.SalaryDto">
+        SELECT
+        wage_id,
+        staff.staff_id,
+        staff.staff_name,
+        department.depart_id,
+        department.depart_name,
+        fixed_salary.subsidy+fixed_salary.basic_salary as fixedSalary ,
+        (reward_punish.overday*100 - reward_punish.sickday * 20 - reward_punish.lateday * 10 - reward_punish.affairday * 50) as rewardPunishSalary ,
+        wage.create_time,
+        wage.status
+        FROM `wage`,staff,department,fixed_salary ,reward_punish
+        where
+        wage.fixed_salary_id = fixed_salary.fixed_salary_id
+        and wage.staff_id = staff.staff_id
+        and department.depart_id = wage.depart_id
+        and wage.depart_id = #{departId}
+        and wage.reward_punish_id = reward_punish.reward_punish_id
+    </select>
+
+
+    <select id="selectCalcSalary" resultType="Double">
+      select formula.formula_percentage
+        from calc_item
+        join calc_salary_item on calc_item.calc_item_id = calc_salary_item.calc_item_id
+        join calc_salary on calc_salary_item.calc_salary_id = calc_salary.calc_salary_id
+        join formula on calc_item.formula_id = formula.formula_id
+        where  calc_item.calc_item_id in (select calc_salary_item.calc_item_id from calc_salary_item , calc_salary where calc_salary.calc_salary_id = calc_salary_item.calc_salary_id and calc_salary.staff_id = #{staffId} )
+    </select>
+
+    <update id="updateWageStatus">
+        UPDATE wage
+        set wage.status = #{status}
+        WHERE wage.wage_id = #{wageId}
+    </update>
+
+</mapper>
