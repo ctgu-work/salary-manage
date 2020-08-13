@@ -43,6 +43,6 @@ public class CalcSalaryDtoServiceImpl implements CalcSalaryDtoService {
 
     @Override
     public int deleteCalcSalary(Integer calcSalaryId) {
-        return deleteCalcSalary(calcSalaryId);
+        return calcSalaryDtoDao.deleteCalcSalary(calcSalaryId);
     }
 }
